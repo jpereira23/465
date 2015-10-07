@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html>
+
+
+<h1>Jeffery Pereira's Word Ladder</h1> 
+<hr> 
+<p> 
+Fill in each step with a word that differs from the word in the previous step by no more than one character. One you reach a word that differs from the goal by only one letter, you can stop and leave the remainder of the steps empty. 
+</p> 
+<br>
+<br>
+
+Step 0: <%= @w1 %>
+<br>
+<input name="utf8" type="hidden" value="&#x2713;" />
+<%= form_tag(text1_path, method: "get")do %>
+  <%= label_tag(:text1, "Step 1:") %>
+  <%= text_field_tag(:text1) %>
+  <br>
+  <%= label_tag(:text2, "Step 2:") %> 
+  <%= text_field_tag(:text2) %>
+  <br>
+  <%= label_tag(:text3, "Step 3:") %>
+  <%= text_field_tag(:text3) %> 
+  <br>
+  <%= label_tag(:text4, "Step 4:") %>
+  <%= text_field_tag(:text4) %> 
+  <br>
+  <%= label_tag(:text5, "Step 5:") %> 
+  <%= text_field_tag(:text5) %>
+  <%= submit_tag("Submit Answers") %>
+<br>
+<% end %>
+<br>
+Goal: <%= @w2 %>
+</form>
+
+
+
+
+<br>
+
+</body> 
+</html> 
+
