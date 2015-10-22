@@ -4,36 +4,46 @@
 <h3>Your Guesses</h3> 
 
 
-<table border = "1" style="width:100%">
+<table border = "1" style="width:50%">
   <tr> 
     <td>Start</td> 
     <td><%= "#{@w1}"%></td> 
+    <td>Legal/Illegal Move</td>
   </tr> 
   <tr> 
     <td>Step 1</td> 
     <td><%= "#{@text1}"%></td>
+    <td><%= "#{@ttext1}" %></td> 
   </tr> 
   <tr> 
     <td>Step 2</td> 
     <td><%= "#{@text2}" %></td> 
+    <td><%= "#{@ttext3}" %></td>
   </tr> 
   <tr> 
     <td>Step 3</td> 
     <td><%= "#{@text3}" %></td> 
+    <td><%= "#{@ttext3}" %></td>
   </tr> 
   <tr> 
     <td>Step 4</td> 
     <td><%= "#{@text4}" %></td> 
+ <td><%= "#{@ttext4}" %></td>
   </tr> 
   <tr> 
     <td>Step 5</td> 
     <td><%= "#{@text5}"%></td> 
+ <td><%= "#{@ttext5}" %></td>
   </tr> 
   <tr> 
     <td>End</td> 
     <td><%= "#{@w2}" %></td> 
+ <td>empty</td>
   </tr> 
 </table>
  
 
 <h2><%= "#{@answer}" %></h2> 
+
+<a href="/wladder">Play Again!!!!</a>
+

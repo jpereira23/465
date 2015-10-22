@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html> 
+<h1>References</h1> 
+<style> 
+
+table, th, td {
+  border:1px solid black; 
+  border-collapse: collapse; 
+} 
+
+th, td { 
+  padding: 5px; 
+  text-align: left; 
+}
+
+table tr:nth-child(even){
+  background-color:#eee; 
+}
+
+table tr:nth-child(odd){ 
+  background-color:#fff; 
+} 
+
+table th{ 
+  background-color:black; 
+  color:white; 
+}
+
+th, td { 
+  padding:5px; 
+  text-align: left; 
+}
+
+</style>
+<table> 
+  <thead> 
+   <tr> 
+     <th>URL</th> 
+     <th>Date</th> 
+     <th colspan="2">Options</th>
+   </tr> 
+ </thead> 
+ 
+ <tbody> 
+   <% @references.each do |reference| %> 
+     <tr> 
+       <% if !reference.url.include? "http://" %> 
+       <% then %> 
+       <% reference.url = "http://" + reference.url %> 
+       <% end %> 
+       <% if !reference.url.include? ".com" %> 
+       <% then %> 
+       <% reference.url = reference.url + ".com" %> 
+       <% end %>
+       <td><%= link_to "#{reference.url}", reference.url %></td> 
+       <td><%= reference.created_at %></td> 
+       <td><%= link_to 'Edit', edit_reference_path(reference) %>
+       <td><%= link_to 'Destroy', reference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+     </tr> 
+   <% end %> 
+</tbody>
+</table>
+<%= button_to 'New Reference', new_topic_reference_path, :method => :get %> 
+<%= button_to "Back to #{@topic.title}'s page", topic_path(@topic), :method => :get %>

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p> 
+
+<p> 
+  <strong>Title:</strong> 
+  <%= @topic.title %> 
+</p> 
+
+<p>
+  <strong>Description:</strong> 
+  <%= @topic.description %>  
+</p> 
+
+<%= link_to "Show References", topic_references_path(@topic) %> |
+<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%= link_to 'Show all Topics', topics_path %>

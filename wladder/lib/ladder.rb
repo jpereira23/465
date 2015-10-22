@@ -29,6 +29,8 @@ end
 
 # return true if the array steps contains a legal "ladder" progression from
 # the first word to the last word
+
+
 def legal steps
 
   # if any of the words are not in the dictionary
@@ -45,3 +47,13 @@ def legal steps
   return true
 
 end
+
+def word_in_dictionary word 
+ if !dictionary.find_index word 
+ then 
+    return false 
+ end 
+  
+ return true 
+end 
+
