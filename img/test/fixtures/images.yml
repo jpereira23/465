@@ -2,10 +2,10 @@
 
 one:
   filename: MyString
-  permissions: false
+  auth: false
   user_id: 1
 
 two:
   filename: MyString
-  permissions: false
+  auth: false
   user_id: 1
