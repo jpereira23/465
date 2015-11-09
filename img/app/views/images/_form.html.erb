@@ -12,16 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :filename %><br>
-    <%= f.text_field :filename %>
+    <%= f.file_field :uploaded_file %>
   </div>
   <div class="field">
-    <%= f.label :auth %><br>
-    <%= f.check_box :auth %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+    <%= f.label :public_or_private %><br>
+    <%= f.check_box :public_or_private %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -25,16 +25,21 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
     @image = Image.new(image_params)
+    @image.filename = (0...8).map { (65 + rand(26)).chr }.join + ".jpg"
+    @image.user_id = current_user.id
+    
+    @uploaded_io = params[:image][:uploaded_file]
 
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to @image, notice: 'Image was successfully created.' }
-        format.json { render :show, status: :created, location: @image }
-      else
-        format.html { render :new }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
-    end
+    File.open(Rails.root.join('public', 'images', @image.filename), 'wb') do |file|
+      file.write(@uploaded_io.read)
+    end 
+    
+    if @image.save
+      redirect_to @image, notice: 'Image was successfully created.'
+    else 
+      render :new
+    end 
+
   end
 
   # PATCH/PUT /images/1
@@ -69,6 +74,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:filename, :auth, :user_id)
+      params.require(:image).permit(:filename, :public_or_private, :user_id)
     end
 end

@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108025104) do
+ActiveRecord::Schema.define(version: 20151109042751) do
 
   create_table "images", force: :cascade do |t|
     t.string   "filename"
-    t.boolean  "auth"
+    t.boolean  "public_or_private"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "users", force: :cascade do |t|

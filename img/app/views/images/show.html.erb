@@ -2,12 +2,12 @@
 
 <p>
   <strong>Filename:</strong>
-  <%= @image.filename %>
+  <%= image_tag root_url + "/images/" + @image.filename, size: "100x100", alt: @image.filename %> 
 </p>
 
 <p>
-  <strong>Auth:</strong>
-  <%= @image.auth %>
+  <strong>Public or private:</strong>
+  <%= @image.public_or_private %>
 </p>
 
 <p>
