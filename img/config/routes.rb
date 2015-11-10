@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :image_users
   devise_for :users
   resources :images
-  root 'images#index'
-
+  root 'images#home' 
+  get "images/your_images"
+  get "layouts/image" => "application#image"
+  get "layouts/public" => "application#public"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
