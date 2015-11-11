@@ -3,6 +3,9 @@ class ImagesController < ApplicationController
 
   # GET /images
   # GET /images.json
+  def tag
+    @images = Image.all
+  end
   def share 
     @images = Image.all
   end 
