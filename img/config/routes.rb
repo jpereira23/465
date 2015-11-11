@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  resources :image_users
-  resources :images
-  devise_for :users
-  root 'images_user#index'
+    resources :images, shallow: true 
+     devise_for :users 
+  resources :image_users do 
+    resources :images, shallow: true
+    devise_for :users
+  end
+  get 'share' => 'images#share'
+
+  root 'images#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

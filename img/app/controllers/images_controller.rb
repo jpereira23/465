@@ -3,6 +3,12 @@ class ImagesController < ApplicationController
 
   # GET /images
   # GET /images.json
+  def share 
+    @images = Image.all
+  end 
+  def home 
+    @images = Image.all
+  end 
   def index
     @images = Image.all
   end
@@ -14,7 +20,8 @@ class ImagesController < ApplicationController
 
   # GET /images/new
   def new
-    @image = Image.new
+    @image = Image.new 
+
   end
 
   # GET /images/1/edit
@@ -25,16 +32,21 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
     @image = Image.new(image_params)
+   
+    @image.filename = (0...8).map { (65 + rand(26)).chr }.join + ".jpg"
+    @image.user = current_user
+    
+    @uploaded_io = params[:image][:uploaded_file]
 
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to @image, notice: 'Image was successfully created.' }
-        format.json { render :show, status: :created, location: @image }
-      else
-        format.html { render :new }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
-    end
+    File.open(Rails.root.join('public', 'images', @image.filename), 'wb') do |file|
+      file.write(@uploaded_io.read)
+    end 
+   
+    if @image.save 
+      redirect_to @image, notice: 'Image was successfully created.'
+    else 
+      render :new
+    end 
   end
 
   # PATCH/PUT /images/1
