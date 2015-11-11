@@ -2,10 +2,10 @@
 
 one:
   filename: MyString
-  public_or_private: false
-  user_id: 1
+  private_or_public: false
+  user_id: 
 
 two:
   filename: MyString
-  public_or_private: false
-  user_id: 1
+  private_or_public: false
+  user_id: 

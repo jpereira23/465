@@ -11,26 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110040924) do
+ActiveRecord::Schema.define(version: 20151110234420) do
 
   create_table "image_users", force: :cascade do |t|
-    t.integer  "image_id"
-    t.string   "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id_id"
+    t.integer  "image_id_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
+
+  add_index "image_users", ["image_id_id"], name: "index_image_users_on_image_id_id"
+  add_index "image_users", ["user_id_id"], name: "index_image_users_on_user_id_id"
 
   create_table "images", force: :cascade do |t|
     t.string   "filename"
-    t.boolean  "public_or_private"
+    t.boolean  "private_or_public"
     t.integer  "user_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
 
+  add_index "images", ["user_id"], name: "index_images_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+    t.string   "name"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
