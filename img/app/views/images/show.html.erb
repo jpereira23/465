@@ -2,20 +2,26 @@
 
 <%= link_to "Share this Image?", image_image_users_path(@image) %> 
 <p>
-  <strong>Filename:</strong>
-  <%= @image.filename %>
+   <%= image_tag root_url + "/images/" + @image.filename, size:"100x100", alt:@image.filename %>
 </p>
 
 <p>
-  <strong>Private or public:</strong>
-  <%= @image.private_or_public %>
+  <% if @image.private_or_public == true %> 
+    Private
+  <% else %> 
+    Public 
+   <% end %> 
 </p>
 
+  
+<% @tags.each do |tag| %> 
 <p>
-  <strong>User:</strong>
-  <%= @image.user %>
-</p>
+  <% if @image.id == tag.image_id %> 
+  #<%= tag.str %>  
 
-<%= link_to 'See the Tags?', image_tags_path(@image) %> |
+  <% end %>  
+  <% end %>
+</p>  
+<%= link_to 'Add/Edit/Delete Tags', image_tags_path(@image) %>
 <%= link_to 'Edit', edit_image_path(@image) %> |
 <%= link_to 'Back', images_path %>
