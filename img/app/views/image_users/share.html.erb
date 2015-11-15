@@ -1,0 +1,35 @@
+<html> 
+<body> 
+
+<% if user_signed_in? %> 
+<table> 
+  <thead>
+    <th>User_id</th> 
+    <th>Image_id</th> 
+  </thead> 
+  <tbody> 
+    <% @image_users.each do |image_user| %> 
+
+      <% if image_user.user_id == current_user.id %> 
+      <tr> 
+        <% @images.each do |image| %> 
+          <% if image.id == image_user.image_id %>  
+            <% @users.each do |user| %> 
+              <% if user.id == image.user_id %> 
+                <td><%= user.email %></td> 
+  
+        <td><%= link_to image_tag(root_url + "/images/" + image.filename, size: "100x100", alt:image.filename), image_path(image), :the_id => image_user.image_id %></td> 
+              <% end %> 
+            <% end %> 
+         
+          <% end %> 
+        <% end %>
+      
+      </tr> 
+      <% end %> 
+    <% end %> 
+  </tbody> 
+</table> 
+<% end %> 
+</body> 
+</html> 

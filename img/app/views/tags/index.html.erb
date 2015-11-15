@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>All the Tags for this image</h1>
+
+<%= image_tag root_url + '/images/' + @image.filename, size:"100x100", alt:@image.filename %> 
+<br><br><br>
+<table>
+  <thead>
+    <tr>
+      <th>Every tag for this image</th>
+      <th></th>
+      <th></th> 
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tags.each do |tag| %>
+      <% if @image.id == tag.image_id %> 
+      <tr>
+        <td>#<%= tag.str %></td>
+        <td></td>
+        <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tag', new_image_tag_path(@image) %>

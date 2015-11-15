@@ -1,0 +1,21 @@
+<html> 
+
+<body> 
+  <table> 
+  <thead> 
+    <th>Image</th> 
+    <th>Pick</th> 
+  </thead> 
+  <tbody> 
+    <% @images.each do |image| %> 
+    <% if image.user_id == current_user.id %> 
+    <tr>
+    <td><%= link_to image_tag(root_url + "/images/" + image.filename, size:"100x100", alt:image.filename), image_path %></td> 
+    <td><%= link_to "Pick", image %></td> 
+    </tr> 
+    <% end %>
+    <% end %> 
+  </tbody> 
+  </table> 
+</body> 
+</html>

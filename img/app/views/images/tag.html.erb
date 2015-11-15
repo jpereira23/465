@@ -1,0 +1,19 @@
+<html> 
+<body> 
+  <table> 
+    <thead> 
+      <th>Image</th> 
+      <th>Add Tag?</th> 
+    </thead> 
+    <tbody> 
+      <% @images.each do |image| %> 
+      <tr> 
+        <td><%= image_tag root_url + "/images/" + image.filename, size:"100x100", alt:image.filename %></td>    
+        <td><%= link_to "Yes?", new_image_tag_path(image) %></td> 
+      </tr> 
+      <% end %> 
+    </tbody> 
+  </table> 
+</body> 
+</html>
+

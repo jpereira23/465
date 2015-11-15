@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<strong>User Id:</strong> <%= @image_user.user_id %>
+<br><br><br>
+<% @images.each do |image| %> 
+  <% if image.id == @image_user.image_id %> 
+ 
+    <%= image_tag root_url + "/images/" + image.filename, alt: image.filename, size: "1000x1000"%> 
+  <% end %> 
+<% end %>
+<br>
+
+<%= link_to 'Edit', edit_image_user_path(@image_user) %> |
+<%= link_to 'Back', images_path %>

@@ -1,0 +1,20 @@
+<%= form_for(@image_user) do |f| %> 
+  <% if @image_user.errors.any? %> 
+    <div id="error_explanation"> 
+      <h2><%= pluralize(@image.errors.count, "error") %> prohibited this image from being saved.</h2> 
+
+    <ul> 
+    <% @image.errors.full.messages.each do |message| %> 
+      <li><%= message %></li> 
+    <% end %> 
+    </ul>  
+    </div>
+    <% end %> 
+    <div class="field"> 
+      <%= f.label :user_id %>
+      <%= f.collection_select(:user_id, User.all, :id, :name) %> 
+    </div> 
+    <div class="action"> 
+      <%= f.submit %> 
+    </div> 
+  <% end %>
