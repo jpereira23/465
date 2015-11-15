@@ -14,8 +14,8 @@
     <%= f.file_field :uploaded_file %>
   </div>
   <div class="field">
-    <%= f.label :private_or_public %><br>
-    <%= f.check_box :private_or_public %>
+    <strong>Make public:</strong>
+    <%= f.check_box :private %>
   </div>
   <div class="actions">
     <%= f.submit %>

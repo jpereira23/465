@@ -1,27 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to "Share this Image?", image_image_users_path(@image) %> 
 <p>
-   <%= image_tag root_url + "/images/" + @image.filename, size:"100x100", alt:@image.filename %>
+   <%= image_tag root_url + "/images/" + @image.filename, size:"500x500", alt:@image.filename %>
 </p>
 
 <p>
-  <% if @image.private_or_public == true %> 
-    Private
+  <% if @image.private == true %> 
+    Public
   <% else %> 
-    Public 
+    Private 
    <% end %> 
 </p>
 
-  
+<strong>Click tag to edit it: </strong>
+<br> 
 <% @tags.each do |tag| %> 
-<p>
   <% if @image.id == tag.image_id %> 
-  #<%= tag.str %>  
-
+  | #<%= link_to "#{tag.str}", { :controller => "tags", :action => "edit", :tag_id => tag.id } %> 
   <% end %>  
   <% end %>
-</p>  
-<%= link_to 'Add/Edit/Delete Tags', image_tags_path(@image) %>
+<br><br>
+
+<%= link_to 'New Tag', image_tags_path(@image) %> |
 <%= link_to 'Edit', edit_image_path(@image) %> |
-<%= link_to 'Back', images_path %>
+<%= link_to 'Back', images_path %> |
+<%= link_to 'Share Image', new_image_image_user_path(@image) %> | 
+<%= link_to 'Delete Shared Users', image_image_users_path(@image) %>
+

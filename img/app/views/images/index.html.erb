@@ -2,13 +2,13 @@
 
 <% if user_signed_in? %> 
 
-<h1><%= current_user.email %>'s  Images</h1>
+<h1><%= current_user.name %>'s  Images</h1>
 <br><br>
 <table>
   <thead>
     <tr>
       <th>Images</th>
-      <th>User</th>
+      <th>Owner of the Image</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -18,9 +18,9 @@
     <% if image.user_id == current_user.id %> 
       <tr>
         <td><%= link_to image_tag(root_url + "/images/" + image.filename, size: "100x100", alt:image.filename), image %></td>
-        <td><%= image.user_id %></td>
-        <td><%= link_to 'Edit', edit_image_path(image) %></td>
+        <td><%= current_user.name %></td> 
         <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      
       </tr>
     <% end %>
     <% end %>
@@ -29,18 +29,8 @@
 
 <br>
 
-<ul class="dropdown-menu"> 
-  <li><%= link_to 'New Image', new_image_path %></li> 
-  <li><%= link_to 'Wanna share an image?', share_path %></li>   
-  <li><%= link_to 'Wanna add tags?', tagi_path %></li>
-</ul>
-<% else %> 
-
-<ul class="dropdown-menu"> 
-  <li><%= link_to 'New Image', new_image_path %></li> 
-  <li><%= link_to 'Wanna share an image?', share_path %></li>   
-  <li><%= link_to 'Wanna add tags?', tagi_path %></li>
-</ul>
+  <%= link_to 'New Image', new_image_path %> 
+<% else %>
 
 <h5>Log in to see your images</h5>
 <% end %>

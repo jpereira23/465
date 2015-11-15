@@ -11,6 +11,7 @@ class ImagesController < ApplicationController
   end 
   def home 
     @images = Image.all
+    @users = User.all
   end 
   def index
     @images = Image.all
@@ -20,6 +21,10 @@ class ImagesController < ApplicationController
   # GET /images/1.json
   def show
     @tags = Tag.all
+    @image_user = ImageUser.new 
+    @image_user.image_id = Image.find params[:id]
+    @image_user.user_id = :user_id
+    @image_user.save
   end
 
   # GET /images/new
