@@ -1,342 +1,971 @@
-D, [2015-11-14T22:01:55.708127 #10468] DEBUG -- :   [1m[36m (2.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
-D, [2015-11-14T22:01:55.709008 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m  select sqlite_version(*)
-D, [2015-11-14T22:01:55.711500 #10468] DEBUG -- :   [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
-D, [2015-11-14T22:01:55.712629 #10468] DEBUG -- :   [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
-I, [2015-11-14T22:01:55.718156 #10468]  INFO -- : Migrating to CreateImages (20151110231344)
-D, [2015-11-14T22:01:55.719292 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
-D, [2015-11-14T22:01:55.723230 #10468] DEBUG -- :   [1m[35m (0.6ms)[0m  CREATE TABLE "images" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "filename" varchar, "private_or_public" boolean, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
-D, [2015-11-14T22:01:55.724004 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_images_on_user_id" ON "images" ("user_id")[0m
-D, [2015-11-14T22:01:55.733823 #10468] DEBUG -- :   [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151110231344"]]
-D, [2015-11-14T22:01:55.736705 #10468] DEBUG -- :   [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
-I, [2015-11-14T22:01:55.736797 #10468]  INFO -- : Migrating to CreateImageUsers (20151110234420)
-D, [2015-11-14T22:01:55.737609 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
-D, [2015-11-14T22:01:55.738733 #10468] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mCREATE TABLE "image_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id_id" integer, "image_id_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
-D, [2015-11-14T22:01:55.739490 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE  INDEX "index_image_users_on_user_id_id" ON "image_users" ("user_id_id")
-D, [2015-11-14T22:01:55.740213 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.740693 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE  INDEX "index_image_users_on_image_id_id" ON "image_users" ("image_id_id")
-D, [2015-11-14T22:01:55.741751 #10468] DEBUG -- :   [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20151110234420"]]
-D, [2015-11-14T22:01:55.744624 #10468] DEBUG -- :   [1m[35m (2.7ms)[0m  commit transaction
-I, [2015-11-14T22:01:55.744743 #10468]  INFO -- : Migrating to CreateTags (20151111170255)
-D, [2015-11-14T22:01:55.745528 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
-D, [2015-11-14T22:01:55.746492 #10468] DEBUG -- :   [1m[35m (0.3ms)[0m  CREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "str" varchar, "image_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
-D, [2015-11-14T22:01:55.747989 #10468] DEBUG -- :   [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20151111170255"]]
-D, [2015-11-14T22:01:55.750039 #10468] DEBUG -- :   [1m[35m (1.8ms)[0m  commit transaction
-I, [2015-11-14T22:01:55.750136 #10468]  INFO -- : Migrating to DeviseCreateUsers (20151113172639)
-D, [2015-11-14T22:01:55.752480 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
-D, [2015-11-14T22:01:55.753855 #10468] DEBUG -- :   [1m[35m (0.3ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
-D, [2015-11-14T22:01:55.755364 #10468] DEBUG -- :   [1m[36m (0.7ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
-D, [2015-11-14T22:01:55.756657 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_users_on_email' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_users_on_email' AND type='index'
+I, [2015-11-15T17:41:56.876721 #1532]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 17:41:56 -0800
+I, [2015-11-15T17:41:56.915116 #1532]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T17:41:56.945603 #1532] DEBUG -- :   [1m[36mImage Load (3.7ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T17:41:56.972567 #1532] DEBUG -- :   [1m[35mUser Load (1.0ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T17:41:57.017411 #1532]  INFO -- :   Rendered images/home.html.erb within layouts/application (79.3ms)
+I, [2015-11-15T17:41:57.025583 #1532]  INFO -- : Completed 200 OK in 110ms (Views: 92.6ms | ActiveRecord: 5.7ms)
+I, [2015-11-15T17:52:17.447886 #1531]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 17:52:17 -0800
+I, [2015-11-15T17:52:17.477510 #1531]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T17:52:17.500677 #1531] DEBUG -- :   [1m[36mImage Load (2.9ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T17:52:17.524829 #1531] DEBUG -- :   [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T17:52:17.572940 #1531]  INFO -- :   Rendered images/home.html.erb within layouts/application (78.2ms)
+I, [2015-11-15T17:52:17.581010 #1531]  INFO -- : Completed 200 OK in 103ms (Views: 86.6ms | ActiveRecord: 4.6ms)
+I, [2015-11-15T18:15:39.850454 #1533]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:15:39 -0800
+I, [2015-11-15T18:15:39.879566 #1533]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:15:39.903143 #1533] DEBUG -- :   [1m[36mImage Load (3.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:15:39.927081 #1533] DEBUG -- :   [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:15:39.972745 #1533]  INFO -- :   Rendered images/home.html.erb within layouts/application (75.8ms)
+I, [2015-11-15T18:15:39.980979 #1533]  INFO -- : Completed 200 OK in 101ms (Views: 84.3ms | ActiveRecord: 5.0ms)
+I, [2015-11-15T18:15:42.503451 #1533]  INFO -- : Started GET "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:15:42 -0800
+I, [2015-11-15T18:15:42.507048 #1533]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-11-15T18:15:42.562269 #1533]  INFO -- :   Rendered devise/shared/_links.html.erb (3.0ms)
+I, [2015-11-15T18:15:42.562542 #1533]  INFO -- :   Rendered devise/sessions/new.html.erb within layouts/application (44.2ms)
+I, [2015-11-15T18:15:42.564516 #1533]  INFO -- : Completed 200 OK in 57ms (Views: 51.4ms | ActiveRecord: 0.0ms)
+I, [2015-11-15T18:15:47.893542 #1533]  INFO -- : Started POST "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:15:47 -0800
+I, [2015-11-15T18:15:47.896432 #1533]  INFO -- : Processing by Devise::SessionsController#create as HTML
+I, [2015-11-15T18:15:47.896635 #1533]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"DY2HOtk7URSm/cz1Ysz6THHS4lwrLmOqkxuBpisgJHYdlhuTI1COCarxdvLCTBhq1v0ahezvaxqf9QMp06Sdlw==", "user"=>{"email"=>"a@a.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+D, [2015-11-15T18:15:47.921865 #1533] DEBUG -- :   [1m[36mUser Load (1.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["email", "a@a.com"]]
+D, [2015-11-15T18:15:48.053086 #1533] DEBUG -- :   [1m[35m (0.3ms)[0m  begin transaction
+D, [2015-11-15T18:15:48.061987 #1533] DEBUG -- :   [1m[36mSQL (0.6ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = ?, "current_sign_in_at" = ?, "last_sign_in_ip" = ?, "current_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["last_sign_in_at", "2015-11-16 02:15:48.049768"], ["current_sign_in_at", "2015-11-16 02:15:48.049768"], ["last_sign_in_ip", "73.2.51.253"], ["current_sign_in_ip", "73.2.51.253"], ["sign_in_count", 1], ["updated_at", "2015-11-16 02:15:48.054098"], ["id", 1]]
+D, [2015-11-15T18:15:48.065376 #1533] DEBUG -- :   [1m[35m (2.6ms)[0m  commit transaction
+I, [2015-11-15T18:15:48.076170 #1533]  INFO -- : Redirected to http://45.55.9.157/img/
+I, [2015-11-15T18:15:48.076688 #1533]  INFO -- : Completed 302 Found in 180ms (ActiveRecord: 4.9ms)
+I, [2015-11-15T18:15:48.137693 #1533]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:15:48 -0800
+I, [2015-11-15T18:15:48.140648 #1533]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:15:48.145967 #1533] DEBUG -- :   [1m[36mImage Load (1.4ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:15:48.151375 #1533] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:15:48.179352 #1533]  INFO -- :   Rendered images/home.html.erb within layouts/application (35.2ms)
+D, [2015-11-15T18:15:48.182244 #1533] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:15:48.183532 #1533]  INFO -- : Completed 200 OK in 43ms (Views: 39.1ms | ActiveRecord: 2.2ms)
+I, [2015-11-15T18:15:49.604513 #1533]  INFO -- : Started GET "/img/sharei" for 73.2.51.253 at 2015-11-15 18:15:49 -0800
+I, [2015-11-15T18:15:49.608400 #1533]  INFO -- : Processing by ImageUsersController#share as HTML
+D, [2015-11-15T18:15:49.619593 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:15:49.626042 #1533] DEBUG -- :   [1m[36mImageUser Load (5.8ms)[0m  [1mSELECT "image_users".* FROM "image_users"[0m
+D, [2015-11-15T18:15:49.642754 #1533] DEBUG -- :   [1m[35mImage Load (1.5ms)[0m  SELECT "images".* FROM "images"
+D, [2015-11-15T18:15:49.647542 #1533] DEBUG -- :   [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:15:49.667783 #1533]  INFO -- :   Rendered image_users/share.html.erb within layouts/application (50.5ms)
+I, [2015-11-15T18:15:49.669686 #1533]  INFO -- : Completed 200 OK in 61ms (Views: 51.0ms | ActiveRecord: 8.3ms)
+I, [2015-11-15T18:15:50.994935 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:15:50 -0800
+I, [2015-11-15T18:15:50.997610 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:15:51.006001 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:15:51.008392 #1533] DEBUG -- :   [1m[36mImage Load (1.7ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:15:51.019922 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (16.5ms)
+I, [2015-11-15T18:15:51.021689 #1533]  INFO -- : Completed 200 OK in 24ms (Views: 21.0ms | ActiveRecord: 1.9ms)
+I, [2015-11-15T18:15:52.202196 #1533]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:15:52 -0800
+I, [2015-11-15T18:15:52.209986 #1533]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:15:52.210135 #1533]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:15:52.220131 #1533] DEBUG -- :   [1m[35mImage Load (0.5ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:15:52.221801 #1533] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "7"]]
+D, [2015-11-15T18:15:52.243885 #1533] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:15:52.246578 #1533] DEBUG -- :   [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:15:52.244150"], ["updated_at", "2015-11-16 02:15:52.244150"]]
+D, [2015-11-15T18:15:52.251417 #1533] DEBUG -- :   [1m[35m (4.0ms)[0m  commit transaction
+D, [2015-11-15T18:15:52.262460 #1533] DEBUG -- :   [1m[36mTag Load (4.3ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:15:52.284499 #1533]  INFO -- :   Rendered images/show.html.erb within layouts/application (28.3ms)
+D, [2015-11-15T18:15:52.286908 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:15:52.287983 #1533]  INFO -- : Completed 200 OK in 78ms (Views: 31.0ms | ActiveRecord: 10.5ms)
+I, [2015-11-15T18:15:54.160291 #1533]  INFO -- : Started GET "/img/images/7/image_users" for 73.2.51.253 at 2015-11-15 18:15:54 -0800
+I, [2015-11-15T18:15:54.163791 #1533]  INFO -- : Processing by ImageUsersController#index as HTML
+I, [2015-11-15T18:15:54.163963 #1533]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:15:54.165532 #1533] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:15:54.175307 #1533] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:15:54.178427 #1533] DEBUG -- :   [1m[36mImageUser Load (2.2ms)[0m  [1mSELECT "image_users".* FROM "image_users"[0m
+I, [2015-11-15T18:15:54.187905 #1533]  INFO -- :   Rendered image_users/index.html.erb within layouts/application (14.8ms)
+I, [2015-11-15T18:15:54.189610 #1533]  INFO -- : Completed 200 OK in 25ms (Views: 20.8ms | ActiveRecord: 2.6ms)
+I, [2015-11-15T18:15:58.848015 #1533]  INFO -- : Started GET "/img/images/7/image_users/new" for 73.2.51.253 at 2015-11-15 18:15:58 -0800
+I, [2015-11-15T18:15:58.850219 #1533]  INFO -- : Processing by ImageUsersController#new as HTML
+I, [2015-11-15T18:15:58.850286 #1533]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:15:58.851490 #1533] DEBUG -- :   [1m[35mImage Load (0.2ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:15:58.879981 #1533] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:15:58.883009 #1533]  INFO -- :   Rendered image_users/_form.html.erb (6.3ms)
+I, [2015-11-15T18:15:58.883126 #1533]  INFO -- :   Rendered image_users/new.html.erb within layouts/application (8.1ms)
+D, [2015-11-15T18:15:58.884629 #1533] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:15:58.885409 #1533]  INFO -- : Completed 200 OK in 35ms (Views: 12.2ms | ActiveRecord: 0.7ms)
+I, [2015-11-15T18:16:01.095994 #1533]  INFO -- : Started POST "/img/images/7/image_users" for 73.2.51.253 at 2015-11-15 18:16:01 -0800
+I, [2015-11-15T18:16:01.099229 #1533]  INFO -- : Processing by ImageUsersController#create as HTML
+I, [2015-11-15T18:16:01.099349 #1533]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"dAE1RmdxZhWTyq+dCHUzXRnkBmunScMQ1nxAVAH6cgDm4tqg7FgonUBZP49ZUz+bsIPtdPKSbbN9k6xpV86Hew==", "image_user"=>{"user_id"=>"1"}, "commit"=>"Create Image user", "image_id"=>"7"}
+D, [2015-11-15T18:16:01.101065 #1533] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:16:01.102760 #1533] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:16:01.104121 #1533] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "image_users" ("user_id", "image_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["image_id", 7], ["created_at", "2015-11-16 02:16:01.102923"], ["updated_at", "2015-11-16 02:16:01.102923"]]
+D, [2015-11-15T18:16:01.107402 #1533] DEBUG -- :   [1m[35m (2.9ms)[0m  commit transaction
+I, [2015-11-15T18:16:01.108138 #1533]  INFO -- : Redirected to http://45.55.9.157/img/image_users/446
+I, [2015-11-15T18:16:01.108333 #1533]  INFO -- : Completed 302 Found in 9ms (ActiveRecord: 3.5ms)
+I, [2015-11-15T18:16:01.199513 #1533]  INFO -- : Started GET "/img/image_users/446" for 73.2.51.253 at 2015-11-15 18:16:01 -0800
+I, [2015-11-15T18:16:01.201483 #1533]  INFO -- : Processing by ImageUsersController#show as HTML
+I, [2015-11-15T18:16:01.201546 #1533]  INFO -- :   Parameters: {"id"=>"446"}
+D, [2015-11-15T18:16:01.203109 #1533] DEBUG -- :   [1m[36mImageUser Load (0.2ms)[0m  [1mSELECT  "image_users".* FROM "image_users" WHERE "image_users"."id" = ? LIMIT 1[0m  [["id", 446]]
+D, [2015-11-15T18:16:01.203590 #1533] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "image_users".* FROM "image_users" WHERE "image_users"."id" = ? LIMIT 1  [["id", "446"]]
+D, [2015-11-15T18:16:01.211018 #1533] DEBUG -- :   [1m[36mImage Load (1.0ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:16:01.215590 #1533]  INFO -- :   Rendered image_users/show.html.erb within layouts/application (7.0ms)
+D, [2015-11-15T18:16:01.217999 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:16:01.218908 #1533]  INFO -- : Completed 200 OK in 17ms (Views: 13.7ms | ActiveRecord: 1.5ms)
+I, [2015-11-15T18:16:03.267732 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:16:03 -0800
+I, [2015-11-15T18:16:03.269807 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:16:03.273393 #1533] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:16:03.274881 #1533] DEBUG -- :   [1m[35mImage Load (1.0ms)[0m  SELECT "images".* FROM "images"
+I, [2015-11-15T18:16:03.286458 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.9ms)
+I, [2015-11-15T18:16:03.288532 #1533]  INFO -- : Completed 200 OK in 19ms (Views: 16.4ms | ActiveRecord: 1.1ms)
+I, [2015-11-15T18:16:04.603881 #1533]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:16:04 -0800
+I, [2015-11-15T18:16:04.606405 #1533]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:16:04.606471 #1533]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:16:04.607853 #1533] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:16:04.608951 #1533] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "7"]]
+D, [2015-11-15T18:16:04.609638 #1533] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:16:04.611208 #1533] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:16:04.609848"], ["updated_at", "2015-11-16 02:16:04.609848"]]
+D, [2015-11-15T18:16:04.614592 #1533] DEBUG -- :   [1m[36m (3.0ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:16:04.619589 #1533] DEBUG -- :   [1m[35mTag Load (2.2ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:16:04.630023 #1533]  INFO -- :   Rendered images/show.html.erb within layouts/application (13.3ms)
+D, [2015-11-15T18:16:04.631400 #1533] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:16:04.632203 #1533]  INFO -- : Completed 200 OK in 26ms (Views: 14.9ms | ActiveRecord: 6.0ms)
+I, [2015-11-15T18:16:05.447126 #1533]  INFO -- : Started GET "/img/images/7/image_users" for 73.2.51.253 at 2015-11-15 18:16:05 -0800
+I, [2015-11-15T18:16:05.449164 #1533]  INFO -- : Processing by ImageUsersController#index as HTML
+I, [2015-11-15T18:16:05.449230 #1533]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:16:05.450250 #1533] DEBUG -- :   [1m[35mImage Load (0.1ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:16:05.453426 #1533] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:16:05.455829 #1533] DEBUG -- :   [1m[35mImageUser Load (1.7ms)[0m  SELECT "image_users".* FROM "image_users"
+D, [2015-11-15T18:16:05.464749 #1533] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:16:05.465879 #1533]  INFO -- :   Rendered image_users/index.html.erb within layouts/application (13.2ms)
+I, [2015-11-15T18:16:05.467113 #1533]  INFO -- : Completed 200 OK in 18ms (Views: 14.0ms | ActiveRecord: 2.4ms)
+I, [2015-11-15T18:16:08.244294 #1533]  INFO -- : Started DELETE "/img/image_users/446" for 73.2.51.253 at 2015-11-15 18:16:08 -0800
+I, [2015-11-15T18:16:08.246441 #1533]  INFO -- : Processing by ImageUsersController#destroy as HTML
+I, [2015-11-15T18:16:08.246511 #1533]  INFO -- :   Parameters: {"authenticity_token"=>"fCYxNS4MjWKCeAzMMBlFHUbIrEr+9LHftjf0PZKSD/Tuxd7TpSXD6lHrnN5hP0nb769HVasvH3wd2BgAxKb6jw==", "id"=>"446"}
+D, [2015-11-15T18:16:08.247600 #1533] DEBUG -- :   [1m[35mImageUser Load (0.1ms)[0m  SELECT  "image_users".* FROM "image_users" WHERE "image_users"."id" = ? LIMIT 1  [["id", 446]]
+D, [2015-11-15T18:16:08.248028 #1533] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:16:08.249068 #1533] DEBUG -- :   [1m[35mSQL (0.2ms)[0m  DELETE FROM "image_users" WHERE "image_users"."id" = ?  [["id", 446]]
+D, [2015-11-15T18:16:08.252007 #1533] DEBUG -- :   [1m[36m (2.8ms)[0m  [1mcommit transaction[0m
+I, [2015-11-15T18:16:08.252655 #1533]  INFO -- : Redirected to http://45.55.9.157/img/images
+I, [2015-11-15T18:16:08.252857 #1533]  INFO -- : Completed 302 Found in 6ms (ActiveRecord: 3.2ms)
+I, [2015-11-15T18:16:08.342888 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:16:08 -0800
+I, [2015-11-15T18:16:08.344727 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:16:08.349035 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:16:08.350608 #1533] DEBUG -- :   [1m[36mImage Load (1.0ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:16:08.358621 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (11.5ms)
+I, [2015-11-15T18:16:08.359896 #1533]  INFO -- : Completed 200 OK in 15ms (Views: 13.1ms | ActiveRecord: 1.2ms)
+I, [2015-11-15T18:16:10.047167 #1533]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:16:10 -0800
+I, [2015-11-15T18:16:10.049149 #1533]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:16:10.049213 #1533]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:16:10.050242 #1533] DEBUG -- :   [1m[35mImage Load (0.1ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:16:10.050738 #1533] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "7"]]
+D, [2015-11-15T18:16:10.051267 #1533] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:16:10.052395 #1533] DEBUG -- :   [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:16:10.051420"], ["updated_at", "2015-11-16 02:16:10.051420"]]
+D, [2015-11-15T18:16:10.055520 #1533] DEBUG -- :   [1m[35m (2.7ms)[0m  commit transaction
+D, [2015-11-15T18:16:10.061077 #1533] DEBUG -- :   [1m[36mTag Load (2.9ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:16:10.071149 #1533]  INFO -- :   Rendered images/show.html.erb within layouts/application (13.7ms)
+D, [2015-11-15T18:16:10.072919 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:16:10.073872 #1533]  INFO -- : Completed 200 OK in 25ms (Views: 14.9ms | ActiveRecord: 6.3ms)
+I, [2015-11-15T18:16:10.998651 #1533]  INFO -- : Started GET "/img/images/7/image_users" for 73.2.51.253 at 2015-11-15 18:16:10 -0800
+I, [2015-11-15T18:16:11.000642 #1533]  INFO -- : Processing by ImageUsersController#index as HTML
+I, [2015-11-15T18:16:11.000708 #1533]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:16:11.001823 #1533] DEBUG -- :   [1m[36mImage Load (0.1ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:16:11.004787 #1533] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:16:11.007439 #1533] DEBUG -- :   [1m[36mImageUser Load (1.9ms)[0m  [1mSELECT "image_users".* FROM "image_users"[0m
+I, [2015-11-15T18:16:11.023899 #1533]  INFO -- :   Rendered image_users/index.html.erb within layouts/application (19.8ms)
+I, [2015-11-15T18:16:11.025533 #1533]  INFO -- : Completed 200 OK in 25ms (Views: 21.2ms | ActiveRecord: 2.1ms)
+I, [2015-11-15T18:16:12.768440 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:16:12 -0800
+I, [2015-11-15T18:16:12.770395 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:16:12.773979 #1533] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:16:12.775817 #1533] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:16:12.784044 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (11.0ms)
+I, [2015-11-15T18:16:12.785376 #1533]  INFO -- : Completed 200 OK in 15ms (Views: 12.5ms | ActiveRecord: 1.5ms)
+I, [2015-11-15T18:16:13.428851 #1533]  INFO -- : Started GET "/img/images/new" for 73.2.51.253 at 2015-11-15 18:16:13 -0800
+I, [2015-11-15T18:16:13.432788 #1533]  INFO -- : Processing by ImagesController#new as HTML
+I, [2015-11-15T18:16:13.450489 #1533]  INFO -- :   Rendered images/_form.html.erb (2.9ms)
+I, [2015-11-15T18:16:13.450825 #1533]  INFO -- :   Rendered images/new.html.erb within layouts/application (9.6ms)
+D, [2015-11-15T18:16:13.453415 #1533] DEBUG -- :   [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:16:13.454827 #1533]  INFO -- : Completed 200 OK in 22ms (Views: 20.1ms | ActiveRecord: 0.3ms)
+I, [2015-11-15T18:16:21.911518 #1533]  INFO -- : Started POST "/img/images" for 73.2.51.253 at 2015-11-15 18:16:21 -0800
+I, [2015-11-15T18:16:21.913645 #1533]  INFO -- : Processing by ImagesController#create as HTML
+I, [2015-11-15T18:16:21.913831 #1533]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"ZheCjEceUyayy2V+T+sPvY5MHKQKwcnpigQpLUgI+3r09G1qzDcdrmFY9WwezQN7Jyv3u18aZ0oh68UQHjwOAQ==", "image"=>{"uploaded_file"=>#<ActionDispatch::Http::UploadedFile:0x0000000593d2a8 @tempfile=#<Tempfile:/tmp/RackMultipart20151115-1533-1juya1y.jpg>, @original_filename="1260680977_hbdrake.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image[uploaded_file]\"; filename=\"1260680977_hbdrake.jpg\"\r\nContent-Type: image/jpeg\r\n">, "private"=>"1"}, "commit"=>"Create Image"}
+D, [2015-11-15T18:16:21.915951 #1533] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:16:21.922654 #1533] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:16:21.924478 #1533] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("filename", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["filename", "RFOBBEMD.jpg"], ["user_id", 1], ["created_at", "2015-11-16 02:16:21.923266"], ["updated_at", "2015-11-16 02:16:21.923266"]]
+D, [2015-11-15T18:16:21.929126 #1533] DEBUG -- :   [1m[35m (4.1ms)[0m  commit transaction
+I, [2015-11-15T18:16:21.929813 #1533]  INFO -- : Redirected to http://45.55.9.157/img/images/207
+I, [2015-11-15T18:16:21.930025 #1533]  INFO -- : Completed 302 Found in 16ms (ActiveRecord: 4.7ms)
+I, [2015-11-15T18:16:22.022792 #1533]  INFO -- : Started GET "/img/images/207" for 73.2.51.253 at 2015-11-15 18:16:22 -0800
+I, [2015-11-15T18:16:22.024715 #1533]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:16:22.024796 #1533]  INFO -- :   Parameters: {"id"=>"207"}
+D, [2015-11-15T18:16:22.025868 #1533] DEBUG -- :   [1m[36mImage Load (0.1ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 207]]
+D, [2015-11-15T18:16:22.026472 #1533] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "207"]]
+D, [2015-11-15T18:16:22.026991 #1533] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:16:22.028296 #1533] DEBUG -- :   [1m[35mSQL (0.2ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:16:22.027197"], ["updated_at", "2015-11-16 02:16:22.027197"]]
+D, [2015-11-15T18:16:22.033726 #1533] DEBUG -- :   [1m[36m (4.9ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:16:22.040076 #1533] DEBUG -- :   [1m[35mTag Load (2.3ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:16:22.049643 #1533]  INFO -- :   Rendered images/show.html.erb within layouts/application (13.6ms)
+D, [2015-11-15T18:16:22.051374 #1533] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:16:22.052263 #1533]  INFO -- : Completed 200 OK in 27ms (Views: 15.7ms | ActiveRecord: 7.8ms)
+I, [2015-11-15T18:16:25.079680 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:16:25 -0800
+I, [2015-11-15T18:16:25.081943 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:16:25.085851 #1533] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:16:25.087501 #1533] DEBUG -- :   [1m[36mImage Load (1.1ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:16:25.096311 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (11.4ms)
+I, [2015-11-15T18:16:25.097699 #1533]  INFO -- : Completed 200 OK in 16ms (Views: 13.4ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:16:28.056058 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:16:28 -0800
+I, [2015-11-15T18:16:28.059421 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:16:28.065099 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:16:28.068254 #1533] DEBUG -- :   [1m[36mImage Load (2.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:16:28.080803 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (17.4ms)
+I, [2015-11-15T18:16:28.082071 #1533]  INFO -- : Completed 200 OK in 22ms (Views: 18.5ms | ActiveRecord: 2.5ms)
+I, [2015-11-15T18:16:29.407051 #1533]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:16:29 -0800
+I, [2015-11-15T18:16:29.408924 #1533]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:16:29.413829 #1533] DEBUG -- :   [1m[35mImage Load (1.1ms)[0m  SELECT "images".* FROM "images"
+D, [2015-11-15T18:16:29.417687 #1533] DEBUG -- :   [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:16:29.441793 #1533]  INFO -- :   Rendered images/home.html.erb within layouts/application (30.2ms)
+D, [2015-11-15T18:16:29.443523 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:16:29.444324 #1533]  INFO -- : Completed 200 OK in 35ms (Views: 32.7ms | ActiveRecord: 1.7ms)
+I, [2015-11-15T18:16:35.730351 #1533]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:16:35 -0800
+I, [2015-11-15T18:16:35.733879 #1533]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:16:35.740670 #1533] DEBUG -- :   [1m[36mImage Load (1.6ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:16:35.744741 #1533] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:16:35.774626 #1533]  INFO -- :   Rendered images/home.html.erb within layouts/application (36.1ms)
+D, [2015-11-15T18:16:35.776455 #1533] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:16:35.777730 #1533]  INFO -- : Completed 200 OK in 44ms (Views: 40.1ms | ActiveRecord: 2.2ms)
+I, [2015-11-15T18:16:47.688749 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:16:47 -0800
+I, [2015-11-15T18:16:47.691262 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:16:47.695205 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:16:47.697219 #1533] DEBUG -- :   [1m[36mImage Load (1.4ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:16:47.708370 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (14.1ms)
+I, [2015-11-15T18:16:47.717476 #1533]  INFO -- : Completed 200 OK in 26ms (Views: 23.5ms | ActiveRecord: 1.6ms)
+I, [2015-11-15T18:16:49.887075 #1533]  INFO -- : Started GET "/img/images/207" for 73.2.51.253 at 2015-11-15 18:16:49 -0800
+I, [2015-11-15T18:16:49.889167 #1533]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:16:49.889233 #1533]  INFO -- :   Parameters: {"id"=>"207"}
+D, [2015-11-15T18:16:49.890243 #1533] DEBUG -- :   [1m[35mImage Load (0.2ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 207]]
+D, [2015-11-15T18:16:49.890805 #1533] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "207"]]
+D, [2015-11-15T18:16:49.891320 #1533] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:16:49.892594 #1533] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:16:49.891474"], ["updated_at", "2015-11-16 02:16:49.891474"]]
+D, [2015-11-15T18:16:49.897382 #1533] DEBUG -- :   [1m[35m (4.2ms)[0m  commit transaction
+D, [2015-11-15T18:16:49.907573 #1533] DEBUG -- :   [1m[36mTag Load (4.6ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:16:49.919852 #1533]  INFO -- :   Rendered images/show.html.erb within layouts/application (18.1ms)
+D, [2015-11-15T18:16:49.921529 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:16:49.922404 #1533]  INFO -- : Completed 200 OK in 33ms (Views: 19.7ms | ActiveRecord: 9.4ms)
+I, [2015-11-15T18:16:55.139457 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:16:55 -0800
+I, [2015-11-15T18:16:55.153192 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:16:55.162043 #1533] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:16:55.164440 #1533] DEBUG -- :   [1m[35mImage Load (1.4ms)[0m  SELECT "images".* FROM "images"
+I, [2015-11-15T18:16:55.175142 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (16.2ms)
+I, [2015-11-15T18:16:55.177276 #1533]  INFO -- : Completed 200 OK in 24ms (Views: 19.0ms | ActiveRecord: 1.8ms)
+I, [2015-11-15T18:16:57.044181 #1533]  INFO -- : Started GET "/img/images/new" for 73.2.51.253 at 2015-11-15 18:16:57 -0800
+I, [2015-11-15T18:16:57.046574 #1533]  INFO -- : Processing by ImagesController#new as HTML
+I, [2015-11-15T18:16:57.053658 #1533]  INFO -- :   Rendered images/_form.html.erb (3.1ms)
+I, [2015-11-15T18:16:57.053913 #1533]  INFO -- :   Rendered images/new.html.erb within layouts/application (4.2ms)
+D, [2015-11-15T18:16:57.055677 #1533] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:16:57.056669 #1533]  INFO -- : Completed 200 OK in 10ms (Views: 8.7ms | ActiveRecord: 0.1ms)
+I, [2015-11-15T18:17:02.550094 #1533]  INFO -- : Started POST "/img/images" for 73.2.51.253 at 2015-11-15 18:17:02 -0800
+I, [2015-11-15T18:17:02.553234 #1533]  INFO -- : Processing by ImagesController#create as HTML
+I, [2015-11-15T18:17:02.553426 #1533]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"5p+Q6LXqGO1l/zMdYcYbioK8uAofdW5woRdZ7EfZ30t0fH8OPsNWZbZsow8w4BdMK9tTFUquwNMK+LXREe0qMA==", "image"=>{"uploaded_file"=>#<ActionDispatch::Http::UploadedFile:0x007f8438ac6f98 @tempfile=#<Tempfile:/tmp/RackMultipart20151115-1533-ggqxyc.png>, @original_filename="85837b97cce98c4b007c93520184f7df.510x392x1.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"image[uploaded_file]\"; filename=\"85837b97cce98c4b007c93520184f7df.510x392x1.png\"\r\nContent-Type: image/png\r\n">, "private"=>"0"}, "commit"=>"Create Image"}
+D, [2015-11-15T18:17:02.558303 #1533] DEBUG -- :   [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:17:02.560408 #1533] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:17:02.563076 #1533] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "images" ("filename", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["filename", "PWVRDIOG.jpg"], ["user_id", 1], ["created_at", "2015-11-16 02:17:02.561200"], ["updated_at", "2015-11-16 02:17:02.561200"]]
+D, [2015-11-15T18:17:02.567200 #1533] DEBUG -- :   [1m[36m (3.6ms)[0m  [1mcommit transaction[0m
+I, [2015-11-15T18:17:02.568203 #1533]  INFO -- : Redirected to http://45.55.9.157/img/images/208
+I, [2015-11-15T18:17:02.568406 #1533]  INFO -- : Completed 302 Found in 15ms (ActiveRecord: 4.5ms)
+I, [2015-11-15T18:17:02.659421 #1533]  INFO -- : Started GET "/img/images/208" for 73.2.51.253 at 2015-11-15 18:17:02 -0800
+I, [2015-11-15T18:17:02.661478 #1533]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:17:02.661544 #1533]  INFO -- :   Parameters: {"id"=>"208"}
+D, [2015-11-15T18:17:02.662705 #1533] DEBUG -- :   [1m[35mImage Load (0.2ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 208]]
+D, [2015-11-15T18:17:02.663479 #1533] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "208"]]
+D, [2015-11-15T18:17:02.664265 #1533] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:17:02.665827 #1533] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:17:02.664493"], ["updated_at", "2015-11-16 02:17:02.664493"]]
+D, [2015-11-15T18:17:02.668792 #1533] DEBUG -- :   [1m[35m (2.6ms)[0m  commit transaction
+D, [2015-11-15T18:17:02.674368 #1533] DEBUG -- :   [1m[36mTag Load (2.6ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:17:02.686581 #1533]  INFO -- :   Rendered images/show.html.erb within layouts/application (15.6ms)
+D, [2015-11-15T18:17:02.688644 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:17:02.689543 #1533]  INFO -- : Completed 200 OK in 28ms (Views: 17.6ms | ActiveRecord: 6.0ms)
+I, [2015-11-15T18:17:04.687972 #1533]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:17:04 -0800
+I, [2015-11-15T18:17:04.690075 #1533]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:17:04.694409 #1533] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:17:04.698822 #1533] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:17:04.723725 #1533]  INFO -- :   Rendered images/home.html.erb within layouts/application (30.8ms)
+D, [2015-11-15T18:17:04.725714 #1533] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:17:04.726760 #1533]  INFO -- : Completed 200 OK in 36ms (Views: 33.7ms | ActiveRecord: 1.8ms)
+I, [2015-11-15T18:17:07.395434 #1533]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:17:07 -0800
+I, [2015-11-15T18:17:07.397414 #1533]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:17:07.401496 #1533] DEBUG -- :   [1m[35mImage Load (1.3ms)[0m  SELECT "images".* FROM "images"
+D, [2015-11-15T18:17:07.406040 #1533] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:17:07.431118 #1533]  INFO -- :   Rendered images/home.html.erb within layouts/application (31.2ms)
+D, [2015-11-15T18:17:07.432987 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:17:07.434015 #1533]  INFO -- : Completed 200 OK in 36ms (Views: 33.7ms | ActiveRecord: 1.9ms)
+I, [2015-11-15T18:17:10.727383 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:17:10 -0800
+I, [2015-11-15T18:17:10.729478 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:17:10.733135 #1533] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:17:10.734754 #1533] DEBUG -- :   [1m[35mImage Load (1.2ms)[0m  SELECT "images".* FROM "images"
+I, [2015-11-15T18:17:10.744239 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (12.1ms)
+I, [2015-11-15T18:17:10.745559 #1533]  INFO -- : Completed 200 OK in 16ms (Views: 13.7ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:17:12.872061 #1533]  INFO -- : Started GET "/img/images/208" for 73.2.51.253 at 2015-11-15 18:17:12 -0800
+I, [2015-11-15T18:17:12.875929 #1533]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:17:12.876055 #1533]  INFO -- :   Parameters: {"id"=>"208"}
+D, [2015-11-15T18:17:12.878270 #1533] DEBUG -- :   [1m[36mImage Load (0.3ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 208]]
+D, [2015-11-15T18:17:12.879275 #1533] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "208"]]
+D, [2015-11-15T18:17:12.880200 #1533] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:17:12.881867 #1533] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:17:12.880395"], ["updated_at", "2015-11-16 02:17:12.880395"]]
+D, [2015-11-15T18:17:12.885653 #1533] DEBUG -- :   [1m[36m (3.3ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:17:12.891279 #1533] DEBUG -- :   [1m[35mTag Load (2.7ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:17:12.902622 #1533]  INFO -- :   Rendered images/show.html.erb within layouts/application (14.6ms)
+D, [2015-11-15T18:17:12.904426 #1533] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:17:12.905290 #1533]  INFO -- : Completed 200 OK in 29ms (Views: 16.4ms | ActiveRecord: 7.0ms)
+I, [2015-11-15T18:17:18.993563 #1533]  INFO -- : Started GET "/img/images/new" for 73.2.51.253 at 2015-11-15 18:17:18 -0800
+I, [2015-11-15T18:17:18.997848 #1533]  INFO -- : Processing by ImagesController#new as HTML
+I, [2015-11-15T18:17:19.004538 #1533]  INFO -- :   Rendered images/_form.html.erb (1.9ms)
+I, [2015-11-15T18:17:19.004818 #1533]  INFO -- :   Rendered images/new.html.erb within layouts/application (2.9ms)
+D, [2015-11-15T18:17:19.006676 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:17:19.007671 #1533]  INFO -- : Completed 200 OK in 10ms (Views: 7.5ms | ActiveRecord: 0.2ms)
+I, [2015-11-15T18:17:25.333237 #1533]  INFO -- : Started POST "/img/images" for 73.2.51.253 at 2015-11-15 18:17:25 -0800
+I, [2015-11-15T18:17:25.335136 #1533]  INFO -- : Processing by ImagesController#create as HTML
+I, [2015-11-15T18:17:25.335263 #1533]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"cLDvfuftopfveenrKQyrg3T4G40VHdZiGPYGHg+jOJriUwCYbMTsHzzqefl4KqdF3Z/wkkDGeMGzGeojWZfN4Q==", "image"=>{"uploaded_file"=>#<ActionDispatch::Http::UploadedFile:0x007f84390b21f0 @tempfile=#<Tempfile:/tmp/RackMultipart20151115-1533-16ut06f.jpg>, @original_filename="3m4GWBb.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image[uploaded_file]\"; filename=\"3m4GWBb.jpg\"\r\nContent-Type: image/jpeg\r\n">, "private"=>"1"}, "commit"=>"Create Image"}
+D, [2015-11-15T18:17:25.337498 #1533] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:17:25.339225 #1533] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:17:25.340846 #1533] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("filename", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["filename", "FBORHZDQ.jpg"], ["user_id", 1], ["created_at", "2015-11-16 02:17:25.339672"], ["updated_at", "2015-11-16 02:17:25.339672"]]
+D, [2015-11-15T18:17:25.345957 #1533] DEBUG -- :   [1m[35m (4.5ms)[0m  commit transaction
+I, [2015-11-15T18:17:25.347552 #1533]  INFO -- : Redirected to http://45.55.9.157/img/images/209
+I, [2015-11-15T18:17:25.348183 #1533]  INFO -- : Completed 302 Found in 13ms (ActiveRecord: 5.0ms)
+I, [2015-11-15T18:17:25.439820 #1533]  INFO -- : Started GET "/img/images/209" for 73.2.51.253 at 2015-11-15 18:17:25 -0800
+I, [2015-11-15T18:17:25.442288 #1533]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:17:25.442372 #1533]  INFO -- :   Parameters: {"id"=>"209"}
+D, [2015-11-15T18:17:25.443875 #1533] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 209]]
+D, [2015-11-15T18:17:25.444762 #1533] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "209"]]
+D, [2015-11-15T18:17:25.445522 #1533] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:17:25.447420 #1533] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:17:25.445778"], ["updated_at", "2015-11-16 02:17:25.445778"]]
+D, [2015-11-15T18:17:25.451562 #1533] DEBUG -- :   [1m[36m (3.6ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:17:25.457339 #1533] DEBUG -- :   [1m[35mTag Load (2.6ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:17:25.468691 #1533]  INFO -- :   Rendered images/show.html.erb within layouts/application (14.6ms)
+D, [2015-11-15T18:17:25.470499 #1533] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:17:25.471315 #1533]  INFO -- : Completed 200 OK in 29ms (Views: 16.6ms | ActiveRecord: 7.1ms)
+I, [2015-11-15T18:17:30.179929 #1533]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:17:30 -0800
+I, [2015-11-15T18:17:30.182172 #1533]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:17:30.185948 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:17:30.187595 #1533] DEBUG -- :   [1m[36mImage Load (1.0ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:17:30.197162 #1533]  INFO -- :   Rendered images/index.html.erb within layouts/application (12.2ms)
+I, [2015-11-15T18:17:30.198625 #1533]  INFO -- : Completed 200 OK in 16ms (Views: 14.2ms | ActiveRecord: 1.2ms)
+I, [2015-11-15T18:17:32.123853 #1533]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:17:32 -0800
+I, [2015-11-15T18:17:32.127327 #1533]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:17:32.131956 #1533] DEBUG -- :   [1m[35mImage Load (1.3ms)[0m  SELECT "images".* FROM "images"
+D, [2015-11-15T18:17:32.135979 #1533] DEBUG -- :   [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:17:32.170585 #1533]  INFO -- :   Rendered images/home.html.erb within layouts/application (40.1ms)
+D, [2015-11-15T18:17:32.172920 #1533] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:17:32.174173 #1533]  INFO -- : Completed 200 OK in 47ms (Views: 43.5ms | ActiveRecord: 1.8ms)
+I, [2015-11-15T18:17:35.290773 #1533]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:17:35 -0800
+I, [2015-11-15T18:17:35.292621 #1533]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:17:35.296610 #1533] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:17:35.301068 #1533] DEBUG -- :   [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:17:35.326005 #1533]  INFO -- :   Rendered images/home.html.erb within layouts/application (30.9ms)
+D, [2015-11-15T18:17:35.327953 #1533] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:17:35.328850 #1533]  INFO -- : Completed 200 OK in 36ms (Views: 33.5ms | ActiveRecord: 1.8ms)
+I, [2015-11-15T18:21:16.445349 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:21:16 -0800
+I, [2015-11-15T18:21:16.474346 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:21:16.506406 #1553] DEBUG -- :   [1m[36mImage Load (4.8ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:21:16.531315 #1553] DEBUG -- :   [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:21:16.575173 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (78.2ms)
+I, [2015-11-15T18:21:16.583265 #1553]  INFO -- : Completed 200 OK in 109ms (Views: 87.2ms | ActiveRecord: 6.7ms)
+I, [2015-11-15T18:21:27.628024 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:21:27 -0800
+I, [2015-11-15T18:21:27.630650 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:21:27.636786 #1553] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:21:27.641615 #1553] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:21:27.671815 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (37.4ms)
+I, [2015-11-15T18:21:27.673766 #1553]  INFO -- : Completed 200 OK in 43ms (Views: 39.7ms | ActiveRecord: 1.7ms)
+I, [2015-11-15T18:21:28.741674 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:21:28 -0800
+I, [2015-11-15T18:21:28.743588 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:21:28.747678 #1553] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:21:28.752233 #1553] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:21:28.777472 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (31.4ms)
+I, [2015-11-15T18:21:28.779385 #1553]  INFO -- : Completed 200 OK in 36ms (Views: 33.1ms | ActiveRecord: 1.7ms)
+I, [2015-11-15T18:21:31.251712 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:21:31 -0800
+I, [2015-11-15T18:21:31.253512 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:21:31.257508 #1553] DEBUG -- :   [1m[36mImage Load (1.1ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:21:31.262274 #1553] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:21:31.290014 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (33.9ms)
+I, [2015-11-15T18:21:31.291724 #1553]  INFO -- : Completed 200 OK in 38ms (Views: 35.7ms | ActiveRecord: 1.5ms)
+I, [2015-11-15T18:21:33.789699 #1553]  INFO -- : Started GET "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:21:33 -0800
+I, [2015-11-15T18:21:33.793478 #1553]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-11-15T18:21:33.824945 #1553]  INFO -- :   Rendered devise/shared/_links.html.erb (2.4ms)
+I, [2015-11-15T18:21:33.825120 #1553]  INFO -- :   Rendered devise/sessions/new.html.erb within layouts/application (23.6ms)
+I, [2015-11-15T18:21:33.827037 #1553]  INFO -- : Completed 200 OK in 33ms (Views: 29.3ms | ActiveRecord: 0.0ms)
+I, [2015-11-15T18:21:37.389967 #1553]  INFO -- : Started POST "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:21:37 -0800
+I, [2015-11-15T18:21:37.393326 #1553]  INFO -- : Processing by Devise::SessionsController#create as HTML
+I, [2015-11-15T18:21:37.393452 #1553]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"7bavthWHfDrovTNS3KVeh3CW/VuENSlgGwvAIOwQRqtsp5/fmOfQvcdXLD4Pu1ETKFwNOormEjxzVF7fCi2c7A==", "user"=>{"email"=>"a@a.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+D, [2015-11-15T18:21:37.402823 #1553] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["email", "a@a.com"]]
+D, [2015-11-15T18:21:37.521978 #1553] DEBUG -- :   [1m[35m (0.3ms)[0m  begin transaction
+D, [2015-11-15T18:21:37.527733 #1553] DEBUG -- :   [1m[36mSQL (0.8ms)[0m  [1mUPDATE "users" SET "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2015-11-16 02:21:37.519797"], ["sign_in_count", 2], ["updated_at", "2015-11-16 02:21:37.522868"], ["id", 1]]
+D, [2015-11-15T18:21:37.547331 #1553] DEBUG -- :   [1m[35m (4.5ms)[0m  commit transaction
+I, [2015-11-15T18:21:37.552587 #1553]  INFO -- : Redirected to http://45.55.9.157/img/
+I, [2015-11-15T18:21:37.552799 #1553]  INFO -- : Completed 302 Found in 159ms (ActiveRecord: 6.0ms)
+I, [2015-11-15T18:21:37.633802 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:21:37 -0800
+I, [2015-11-15T18:21:37.637988 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:21:37.646326 #1553] DEBUG -- :   [1m[36mImage Load (2.6ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:21:37.656054 #1553] DEBUG -- :   [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:21:37.680049 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (37.1ms)
+D, [2015-11-15T18:21:37.682384 #1553] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:21:37.683715 #1553]  INFO -- : Completed 200 OK in 45ms (Views: 40.1ms | ActiveRecord: 3.5ms)
+I, [2015-11-15T18:21:40.944194 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:21:40 -0800
+I, [2015-11-15T18:21:40.946544 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:21:40.951904 #1553] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:21:40.953617 #1553] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:21:40.963539 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.7ms)
+I, [2015-11-15T18:21:40.964966 #1553]  INFO -- : Completed 200 OK in 18ms (Views: 15.9ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:21:42.798720 #1553]  INFO -- : Started GET "/img/images/208" for 73.2.51.253 at 2015-11-15 18:21:42 -0800
+I, [2015-11-15T18:21:42.801355 #1553]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:21:42.801420 #1553]  INFO -- :   Parameters: {"id"=>"208"}
+D, [2015-11-15T18:21:42.804892 #1553] DEBUG -- :   [1m[35mImage Load (0.3ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 208]]
+D, [2015-11-15T18:21:42.810500 #1553] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "208"]]
+D, [2015-11-15T18:21:42.811201 #1553] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:21:42.813419 #1553] DEBUG -- :   [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:21:42.811417"], ["updated_at", "2015-11-16 02:21:42.811417"]]
+D, [2015-11-15T18:21:42.817421 #1553] DEBUG -- :   [1m[35m (3.5ms)[0m  commit transaction
+D, [2015-11-15T18:21:42.823778 #1553] DEBUG -- :   [1m[36mTag Load (2.4ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:21:42.837353 #1553]  INFO -- :   Rendered images/show.html.erb within layouts/application (17.5ms)
+D, [2015-11-15T18:21:42.839449 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:21:42.840356 #1553]  INFO -- : Completed 200 OK in 39ms (Views: 19.7ms | ActiveRecord: 7.7ms)
+I, [2015-11-15T18:21:44.355455 #1553]  INFO -- : Started GET "/img/images/208/edit" for 73.2.51.253 at 2015-11-15 18:21:44 -0800
+I, [2015-11-15T18:21:44.358376 #1553]  INFO -- : Processing by ImagesController#edit as HTML
+I, [2015-11-15T18:21:44.358462 #1553]  INFO -- :   Parameters: {"id"=>"208"}
+D, [2015-11-15T18:21:44.360004 #1553] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 208]]
+I, [2015-11-15T18:21:44.382970 #1553]  INFO -- :   Rendered images/_form.html.erb (6.3ms)
+I, [2015-11-15T18:21:44.383558 #1553]  INFO -- :   Rendered images/edit.html.erb within layouts/application (10.3ms)
+D, [2015-11-15T18:21:44.387964 #1553] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:21:44.389805 #1553]  INFO -- : Completed 200 OK in 31ms (Views: 28.5ms | ActiveRecord: 0.6ms)
+I, [2015-11-15T18:21:48.295193 #1553]  INFO -- : Started PATCH "/img/images/208" for 73.2.51.253 at 2015-11-15 18:21:48 -0800
+I, [2015-11-15T18:21:48.298436 #1553]  INFO -- : Processing by ImagesController#update as HTML
+I, [2015-11-15T18:21:48.298512 #1553]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"HrCxlkAdDf0yyzUps/7JMBhKHgJpEEFNFy5v654NZaoEc3uts0bce2l6Ks7sC+8afVVhq+NNouhrwbZI14eHgQ==", "image"=>{"private"=>"1"}, "commit"=>"Update Image", "id"=>"208"}
+D, [2015-11-15T18:21:48.300090 #1553] DEBUG -- :   [1m[36mImage Load (0.1ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 208]]
+D, [2015-11-15T18:21:48.301139 #1553] DEBUG -- :   [1m[35m (0.2ms)[0m  begin transaction
+D, [2015-11-15T18:21:48.304307 #1553] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mUPDATE "images" SET "private" = ?, "updated_at" = ? WHERE "images"."id" = ?[0m  [["private", "t"], ["updated_at", "2015-11-16 02:21:48.302301"], ["id", 208]]
+D, [2015-11-15T18:21:48.316114 #1553] DEBUG -- :   [1m[35m (11.0ms)[0m  commit transaction
+I, [2015-11-15T18:21:48.318434 #1553]  INFO -- : Redirected to http://45.55.9.157/img/images/208
+I, [2015-11-15T18:21:48.318738 #1553]  INFO -- : Completed 302 Found in 20ms (ActiveRecord: 11.6ms)
+I, [2015-11-15T18:21:48.411424 #1553]  INFO -- : Started GET "/img/images/208" for 73.2.51.253 at 2015-11-15 18:21:48 -0800
+I, [2015-11-15T18:21:48.415671 #1553]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:21:48.415793 #1553]  INFO -- :   Parameters: {"id"=>"208"}
+D, [2015-11-15T18:21:48.418166 #1553] DEBUG -- :   [1m[36mImage Load (0.3ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 208]]
+D, [2015-11-15T18:21:48.419188 #1553] DEBUG -- :   [1m[35mCACHE (0.1ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "208"]]
+D, [2015-11-15T18:21:48.420072 #1553] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:21:48.422310 #1553] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:21:48.420311"], ["updated_at", "2015-11-16 02:21:48.420311"]]
+D, [2015-11-15T18:21:48.427358 #1553] DEBUG -- :   [1m[36m (4.4ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:21:48.436314 #1553] DEBUG -- :   [1m[35mTag Load (2.5ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:21:48.447092 #1553]  INFO -- :   Rendered images/show.html.erb within layouts/application (15.7ms)
+D, [2015-11-15T18:21:48.449218 #1553] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:21:48.450138 #1553]  INFO -- : Completed 200 OK in 34ms (Views: 19.5ms | ActiveRecord: 8.0ms)
+I, [2015-11-15T18:21:50.110965 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:21:50 -0800
+I, [2015-11-15T18:21:50.112976 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:21:50.117259 #1553] DEBUG -- :   [1m[35mImage Load (1.2ms)[0m  SELECT "images".* FROM "images"
+D, [2015-11-15T18:21:50.121532 #1553] DEBUG -- :   [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:21:50.144857 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (29.1ms)
+D, [2015-11-15T18:21:50.146408 #1553] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:21:50.147275 #1553]  INFO -- : Completed 200 OK in 34ms (Views: 31.6ms | ActiveRecord: 1.7ms)
+I, [2015-11-15T18:21:52.925599 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:21:52 -0800
+I, [2015-11-15T18:21:52.927635 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:21:52.931241 #1553] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:21:52.932998 #1553] DEBUG -- :   [1m[35mImage Load (1.2ms)[0m  SELECT "images".* FROM "images"
+I, [2015-11-15T18:21:52.943569 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.3ms)
+I, [2015-11-15T18:21:52.944778 #1553]  INFO -- : Completed 200 OK in 17ms (Views: 14.8ms | ActiveRecord: 1.4ms)
+I, [2015-11-15T18:21:54.593410 #1553]  INFO -- : Started GET "/img/images/209" for 73.2.51.253 at 2015-11-15 18:21:54 -0800
+I, [2015-11-15T18:21:54.595406 #1553]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:21:54.595472 #1553]  INFO -- :   Parameters: {"id"=>"209"}
+D, [2015-11-15T18:21:54.596493 #1553] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 209]]
+D, [2015-11-15T18:21:54.597025 #1553] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "209"]]
+D, [2015-11-15T18:21:54.597600 #1553] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:21:54.598870 #1553] DEBUG -- :   [1m[35mSQL (0.2ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:21:54.597754"], ["updated_at", "2015-11-16 02:21:54.597754"]]
+D, [2015-11-15T18:21:54.603368 #1553] DEBUG -- :   [1m[36m (3.8ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:21:54.611640 #1553] DEBUG -- :   [1m[35mTag Load (3.3ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:21:54.624937 #1553]  INFO -- :   Rendered images/show.html.erb within layouts/application (17.9ms)
+D, [2015-11-15T18:21:54.626995 #1553] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:21:54.628088 #1553]  INFO -- : Completed 200 OK in 32ms (Views: 20.5ms | ActiveRecord: 7.8ms)
+I, [2015-11-15T18:21:56.178006 #1553]  INFO -- : Started GET "/img/images/209/edit" for 73.2.51.253 at 2015-11-15 18:21:56 -0800
+I, [2015-11-15T18:21:56.180198 #1553]  INFO -- : Processing by ImagesController#edit as HTML
+I, [2015-11-15T18:21:56.180264 #1553]  INFO -- :   Parameters: {"id"=>"209"}
+D, [2015-11-15T18:21:56.181531 #1553] DEBUG -- :   [1m[35mImage Load (0.2ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 209]]
+I, [2015-11-15T18:21:56.200916 #1553]  INFO -- :   Rendered images/_form.html.erb (1.6ms)
+I, [2015-11-15T18:21:56.201255 #1553]  INFO -- :   Rendered images/edit.html.erb within layouts/application (2.6ms)
+D, [2015-11-15T18:21:56.202729 #1553] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:21:56.203688 #1553]  INFO -- : Completed 200 OK in 23ms (Views: 21.4ms | ActiveRecord: 0.3ms)
+I, [2015-11-15T18:21:57.607594 #1553]  INFO -- : Started PATCH "/img/images/209" for 73.2.51.253 at 2015-11-15 18:21:57 -0800
+I, [2015-11-15T18:21:57.609442 #1553]  INFO -- : Processing by ImagesController#update as HTML
+I, [2015-11-15T18:21:57.609534 #1553]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"76ICiJqy3OmNN7r4F9cR7MRdUxopK2G+LvsnqeY+J6P1YcizaekNb9aGpR9IIjfGoUIss6N2ghtSFP4Kr7TFiA==", "image"=>{"private"=>"1"}, "commit"=>"Update Image", "id"=>"209"}
+D, [2015-11-15T18:21:57.610662 #1553] DEBUG -- :   [1m[35mImage Load (0.1ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 209]]
+D, [2015-11-15T18:21:57.611388 #1553] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:21:57.613255 #1553] DEBUG -- :   [1m[35mSQL (0.2ms)[0m  UPDATE "images" SET "private" = ?, "updated_at" = ? WHERE "images"."id" = ?  [["private", "t"], ["updated_at", "2015-11-16 02:21:57.611955"], ["id", 209]]
+D, [2015-11-15T18:21:57.617226 #1553] DEBUG -- :   [1m[36m (3.6ms)[0m  [1mcommit transaction[0m
+I, [2015-11-15T18:21:57.617960 #1553]  INFO -- : Redirected to http://45.55.9.157/img/images/209
+I, [2015-11-15T18:21:57.618142 #1553]  INFO -- : Completed 302 Found in 9ms (ActiveRecord: 4.0ms)
+I, [2015-11-15T18:21:57.709943 #1553]  INFO -- : Started GET "/img/images/209" for 73.2.51.253 at 2015-11-15 18:21:57 -0800
+I, [2015-11-15T18:21:57.711759 #1553]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:21:57.711822 #1553]  INFO -- :   Parameters: {"id"=>"209"}
+D, [2015-11-15T18:21:57.712888 #1553] DEBUG -- :   [1m[35mImage Load (0.2ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 209]]
+D, [2015-11-15T18:21:57.713403 #1553] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "209"]]
+D, [2015-11-15T18:21:57.713960 #1553] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:21:57.715243 #1553] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:21:57.714134"], ["updated_at", "2015-11-16 02:21:57.714134"]]
+D, [2015-11-15T18:21:57.718485 #1553] DEBUG -- :   [1m[35m (2.8ms)[0m  commit transaction
+D, [2015-11-15T18:21:57.723189 #1553] DEBUG -- :   [1m[36mTag Load (2.3ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:21:57.732760 #1553]  INFO -- :   Rendered images/show.html.erb within layouts/application (12.4ms)
+D, [2015-11-15T18:21:57.734215 #1553] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:21:57.735031 #1553]  INFO -- : Completed 200 OK in 23ms (Views: 13.8ms | ActiveRecord: 5.9ms)
+I, [2015-11-15T18:21:59.957112 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:21:59 -0800
+I, [2015-11-15T18:21:59.959037 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:21:59.963198 #1553] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:21:59.967606 #1553] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:21:59.992253 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (30.6ms)
+D, [2015-11-15T18:21:59.993841 #1553] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:21:59.994631 #1553]  INFO -- : Completed 200 OK in 35ms (Views: 32.8ms | ActiveRecord: 1.7ms)
+I, [2015-11-15T18:22:02.886596 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:22:02 -0800
+I, [2015-11-15T18:22:02.889314 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:22:02.893088 #1553] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:22:02.896110 #1553] DEBUG -- :   [1m[36mImage Load (2.5ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:22:02.905623 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.5ms)
+I, [2015-11-15T18:22:02.906904 #1553]  INFO -- : Completed 200 OK in 17ms (Views: 13.9ms | ActiveRecord: 2.6ms)
+I, [2015-11-15T18:35:19.043276 #1553]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:35:19 -0800
+I, [2015-11-15T18:35:19.050418 #1553]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:35:19.050514 #1553]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:35:19.054602 #1553] DEBUG -- :   [1m[35mImage Load (0.4ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:35:19.056156 #1553] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "7"]]
+D, [2015-11-15T18:35:19.057451 #1553] DEBUG -- :   [1m[35m (0.2ms)[0m  begin transaction
+D, [2015-11-15T18:35:19.060695 #1553] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:35:19.057860"], ["updated_at", "2015-11-16 02:35:19.057860"]]
+D, [2015-11-15T18:35:19.064596 #1553] DEBUG -- :   [1m[35m (3.2ms)[0m  commit transaction
+D, [2015-11-15T18:35:19.076043 #1553] DEBUG -- :   [1m[36mTag Load (4.4ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:35:19.098105 #1553]  INFO -- :   Rendered images/show.html.erb within layouts/application (28.9ms)
+I, [2015-11-15T18:35:19.105183 #1553]  INFO -- : Completed 200 OK in 54ms (Views: 35.3ms | ActiveRecord: 8.6ms)
+I, [2015-11-15T18:35:20.254871 #1553]  INFO -- : Started GET "/img/images/7/image_users/new" for 73.2.51.253 at 2015-11-15 18:35:20 -0800
+I, [2015-11-15T18:35:20.259170 #1553]  INFO -- : Processing by ImageUsersController#new as HTML
+I, [2015-11-15T18:35:20.259249 #1553]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:35:20.260736 #1553] DEBUG -- :   [1m[35mImage Load (0.1ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:35:20.286054 #1553] DEBUG -- :   [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:35:20.289387 #1553]  INFO -- :   Rendered image_users/_form.html.erb (7.7ms)
+I, [2015-11-15T18:35:20.289500 #1553]  INFO -- :   Rendered image_users/new.html.erb within layouts/application (9.5ms)
+I, [2015-11-15T18:35:20.291032 #1553]  INFO -- : Completed 200 OK in 32ms (Views: 13.4ms | ActiveRecord: 0.7ms)
+I, [2015-11-15T18:35:24.126547 #1553]  INFO -- : Started GET "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:35:24 -0800
+I, [2015-11-15T18:35:24.129890 #1553]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-11-15T18:35:24.139872 #1553]  INFO -- :   Rendered devise/shared/_links.html.erb (0.5ms)
+I, [2015-11-15T18:35:24.139997 #1553]  INFO -- :   Rendered devise/sessions/new.html.erb within layouts/application (4.5ms)
+I, [2015-11-15T18:35:24.141859 #1553]  INFO -- : Completed 200 OK in 12ms (Views: 9.1ms | ActiveRecord: 0.0ms)
+I, [2015-11-15T18:35:28.107868 #1553]  INFO -- : Started POST "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:35:28 -0800
+I, [2015-11-15T18:35:28.109850 #1553]  INFO -- : Processing by Devise::SessionsController#create as HTML
+I, [2015-11-15T18:35:28.109940 #1553]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"mz4T1kMF3bNySqMCjF1yRE/MGZA1WthFaYY7zQzU0FehLKOdPQ1ecgoofmh1DtFr0MKBYtQi7D8O6rntSKghhA==", "user"=>{"email"=>"a@a.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+D, [2015-11-15T18:35:28.112921 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["email", "a@a.com"]]
+D, [2015-11-15T18:35:28.220695 #1553] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:35:28.223528 #1553] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  UPDATE "users" SET "last_sign_in_at" = ?, "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?  [["last_sign_in_at", "2015-11-16 02:21:37.519797"], ["current_sign_in_at", "2015-11-16 02:35:28.219190"], ["sign_in_count", 3], ["updated_at", "2015-11-16 02:35:28.221228"], ["id", 1]]
+D, [2015-11-15T18:35:28.227587 #1553] DEBUG -- :   [1m[36m (3.4ms)[0m  [1mcommit transaction[0m
+I, [2015-11-15T18:35:28.231218 #1553]  INFO -- : Redirected to http://45.55.9.157/img/
+I, [2015-11-15T18:35:28.231405 #1553]  INFO -- : Completed 302 Found in 121ms (ActiveRecord: 4.2ms)
+I, [2015-11-15T18:35:28.284071 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:35:28 -0800
+I, [2015-11-15T18:35:28.286020 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:35:28.290201 #1553] DEBUG -- :   [1m[35mImage Load (1.3ms)[0m  SELECT "images".* FROM "images"
+D, [2015-11-15T18:35:28.294438 #1553] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:35:28.317683 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (29.1ms)
+D, [2015-11-15T18:35:28.319456 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:35:28.320470 #1553]  INFO -- : Completed 200 OK in 34ms (Views: 31.5ms | ActiveRecord: 1.9ms)
+I, [2015-11-15T18:35:31.177930 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:35:31 -0800
+I, [2015-11-15T18:35:31.179863 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:35:31.183473 #1553] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:35:31.185178 #1553] DEBUG -- :   [1m[35mImage Load (1.2ms)[0m  SELECT "images".* FROM "images"
+I, [2015-11-15T18:35:31.196135 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.6ms)
+I, [2015-11-15T18:35:31.197497 #1553]  INFO -- : Completed 200 OK in 18ms (Views: 15.3ms | ActiveRecord: 1.4ms)
+I, [2015-11-15T18:35:32.242630 #1553]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:35:32 -0800
+I, [2015-11-15T18:35:32.245991 #1553]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:35:32.246119 #1553]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:35:32.267326 #1553] DEBUG -- :   [1m[36mImage Load (0.4ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:35:32.268470 #1553] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "7"]]
+D, [2015-11-15T18:35:32.269561 #1553] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:35:32.272158 #1553] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:35:32.269921"], ["updated_at", "2015-11-16 02:35:32.269921"]]
+D, [2015-11-15T18:35:32.286807 #1553] DEBUG -- :   [1m[36m (12.6ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:35:32.303370 #1553] DEBUG -- :   [1m[35mTag Load (3.7ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:35:32.316968 #1553]  INFO -- :   Rendered images/show.html.erb within layouts/application (20.8ms)
+D, [2015-11-15T18:35:32.320765 #1553] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:35:32.322590 #1553]  INFO -- : Completed 200 OK in 76ms (Views: 28.8ms | ActiveRecord: 17.5ms)
+I, [2015-11-15T18:35:33.707034 #1553]  INFO -- : Started GET "/img/images/7/image_users/new" for 73.2.51.253 at 2015-11-15 18:35:33 -0800
+I, [2015-11-15T18:35:33.711136 #1553]  INFO -- : Processing by ImageUsersController#new as HTML
+I, [2015-11-15T18:35:33.711234 #1553]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:35:33.713129 #1553] DEBUG -- :   [1m[35mImage Load (0.2ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:35:33.720412 #1553] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:35:33.723697 #1553]  INFO -- :   Rendered image_users/_form.html.erb (6.0ms)
+I, [2015-11-15T18:35:33.723821 #1553]  INFO -- :   Rendered image_users/new.html.erb within layouts/application (6.8ms)
+D, [2015-11-15T18:35:33.725318 #1553] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:35:33.726271 #1553]  INFO -- : Completed 200 OK in 15ms (Views: 10.6ms | ActiveRecord: 0.7ms)
+I, [2015-11-15T18:35:37.009946 #1553]  INFO -- : Started POST "/img/images/7/image_users" for 73.2.51.253 at 2015-11-15 18:35:37 -0800
+I, [2015-11-15T18:35:37.012320 #1553]  INFO -- : Processing by ImageUsersController#create as HTML
+I, [2015-11-15T18:35:37.012410 #1553]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"VrR3FDtLx7+hkKAE9gWQr35DLlZpolZp045//F6wctmL/BUs8JeMMAIIN0s1r7dC7byL3IkjEQjMCtlLhouYvw==", "image_user"=>{"user_id"=>"2"}, "commit"=>"Create Image user", "image_id"=>"7"}
+D, [2015-11-15T18:35:37.013585 #1553] DEBUG -- :   [1m[36mImage Load (0.1ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:35:37.015256 #1553] DEBUG -- :   [1m[35m (0.2ms)[0m  begin transaction
+D, [2015-11-15T18:35:37.017153 #1553] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "image_users" ("user_id", "image_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 2], ["image_id", 7], ["created_at", "2015-11-16 02:35:37.015475"], ["updated_at", "2015-11-16 02:35:37.015475"]]
+D, [2015-11-15T18:35:37.022610 #1553] DEBUG -- :   [1m[35m (4.7ms)[0m  commit transaction
+I, [2015-11-15T18:35:37.025476 #1553]  INFO -- : Redirected to http://45.55.9.157/img/image_users/460
+I, [2015-11-15T18:35:37.025858 #1553]  INFO -- : Completed 302 Found in 13ms (ActiveRecord: 5.4ms)
+I, [2015-11-15T18:35:37.117988 #1553]  INFO -- : Started GET "/img/image_users/460" for 73.2.51.253 at 2015-11-15 18:35:37 -0800
+I, [2015-11-15T18:35:37.120491 #1553]  INFO -- : Processing by ImageUsersController#show as HTML
+I, [2015-11-15T18:35:37.120567 #1553]  INFO -- :   Parameters: {"id"=>"460"}
+D, [2015-11-15T18:35:37.122563 #1553] DEBUG -- :   [1m[36mImageUser Load (0.3ms)[0m  [1mSELECT  "image_users".* FROM "image_users" WHERE "image_users"."id" = ? LIMIT 1[0m  [["id", 460]]
+D, [2015-11-15T18:35:37.123112 #1553] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "image_users".* FROM "image_users" WHERE "image_users"."id" = ? LIMIT 1  [["id", "460"]]
+D, [2015-11-15T18:35:37.131655 #1553] DEBUG -- :   [1m[36mImage Load (1.4ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:35:37.137188 #1553]  INFO -- :   Rendered image_users/show.html.erb within layouts/application (9.7ms)
+D, [2015-11-15T18:35:37.139019 #1553] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:35:37.140126 #1553]  INFO -- : Completed 200 OK in 19ms (Views: 15.0ms | ActiveRecord: 1.9ms)
+I, [2015-11-15T18:35:39.746493 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:35:39 -0800
+I, [2015-11-15T18:35:39.748532 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:35:39.752114 #1553] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:35:39.753767 #1553] DEBUG -- :   [1m[35mImage Load (1.1ms)[0m  SELECT "images".* FROM "images"
+I, [2015-11-15T18:35:39.763406 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (12.2ms)
+I, [2015-11-15T18:35:39.764706 #1553]  INFO -- : Completed 200 OK in 16ms (Views: 13.9ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:35:41.762197 #1553]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:35:41 -0800
+I, [2015-11-15T18:35:41.764441 #1553]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:35:41.764505 #1553]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:35:41.765726 #1553] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:35:41.766262 #1553] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "7"]]
+D, [2015-11-15T18:35:41.766973 #1553] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:35:41.768434 #1553] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:35:41.767204"], ["updated_at", "2015-11-16 02:35:41.767204"]]
+D, [2015-11-15T18:35:41.771617 #1553] DEBUG -- :   [1m[36m (2.8ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:35:41.776275 #1553] DEBUG -- :   [1m[35mTag Load (2.2ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:35:41.786169 #1553]  INFO -- :   Rendered images/show.html.erb within layouts/application (12.6ms)
+D, [2015-11-15T18:35:41.787658 #1553] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:35:41.788528 #1553]  INFO -- : Completed 200 OK in 24ms (Views: 14.3ms | ActiveRecord: 5.7ms)
+I, [2015-11-15T18:35:43.690111 #1553]  INFO -- : Started GET "/img/images/7/image_users" for 73.2.51.253 at 2015-11-15 18:35:43 -0800
+I, [2015-11-15T18:35:43.692362 #1553]  INFO -- : Processing by ImageUsersController#index as HTML
+I, [2015-11-15T18:35:43.692425 #1553]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:35:43.693544 #1553] DEBUG -- :   [1m[35mImage Load (0.1ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:35:43.698094 #1553] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:35:43.701074 #1553] DEBUG -- :   [1m[35mImageUser Load (2.3ms)[0m  SELECT "image_users".* FROM "image_users"
+D, [2015-11-15T18:35:43.710807 #1553] DEBUG -- :   [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:35:43.712270 #1553]  INFO -- :   Rendered image_users/index.html.erb within layouts/application (16.0ms)
+I, [2015-11-15T18:35:43.713757 #1553]  INFO -- : Completed 200 OK in 21ms (Views: 16.8ms | ActiveRecord: 3.0ms)
+I, [2015-11-15T18:35:45.401562 #1553]  INFO -- : Started DELETE "/img/users/sign_out" for 73.2.51.253 at 2015-11-15 18:35:45 -0800
+I, [2015-11-15T18:35:45.404041 #1553]  INFO -- : Processing by Devise::SessionsController#destroy as HTML
+I, [2015-11-15T18:35:45.404116 #1553]  INFO -- :   Parameters: {"authenticity_token"=>"gjYlIDqU5OnnaPfC4N3qiEfYMoGBLKI3Al8znjTxGPdffkcY8UivZkTwYI0jd81l1CeXC2Gt5VYd25Up7MrykQ=="}
+D, [2015-11-15T18:35:45.405498 #1553] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:35:45.415197 #1553] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:35:45.416514 #1553] DEBUG -- :   [1m[35m (0.1ms)[0m  commit transaction
+I, [2015-11-15T18:35:45.418056 #1553]  INFO -- : Redirected to http://45.55.9.157/img/
+I, [2015-11-15T18:35:45.418260 #1553]  INFO -- : Completed 302 Found in 14ms (ActiveRecord: 0.3ms)
+I, [2015-11-15T18:35:45.505616 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:35:45 -0800
+I, [2015-11-15T18:35:45.507838 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:35:45.512342 #1553] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:35:45.517031 #1553] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:35:45.542403 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (31.7ms)
+I, [2015-11-15T18:35:45.544789 #1553]  INFO -- : Completed 200 OK in 37ms (Views: 34.0ms | ActiveRecord: 1.7ms)
+I, [2015-11-15T18:35:46.892740 #1553]  INFO -- : Started GET "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:35:46 -0800
+I, [2015-11-15T18:35:46.895633 #1553]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-11-15T18:35:46.904157 #1553]  INFO -- :   Rendered devise/shared/_links.html.erb (0.5ms)
+I, [2015-11-15T18:35:46.904290 #1553]  INFO -- :   Rendered devise/sessions/new.html.erb within layouts/application (4.6ms)
+I, [2015-11-15T18:35:46.905710 #1553]  INFO -- : Completed 200 OK in 10ms (Views: 8.2ms | ActiveRecord: 0.0ms)
+I, [2015-11-15T18:35:49.506207 #1553]  INFO -- : Started POST "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:35:49 -0800
+I, [2015-11-15T18:35:49.508139 #1553]  INFO -- : Processing by Devise::SessionsController#create as HTML
+I, [2015-11-15T18:35:49.508222 #1553]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"nPZdPbvyXyUAbl2hB/cqy2j0yOhauvqWz87FaBkpxCtstOzeHsm3DHKRcIlMlVPBcJQd72cNUnFy0C869JEy1g==", "user"=>{"email"=>"b@b.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+D, [2015-11-15T18:35:49.510463 #1553] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["email", "b@b.com"]]
+D, [2015-11-15T18:35:49.610744 #1553] DEBUG -- :   [1m[35m (0.2ms)[0m  begin transaction
+D, [2015-11-15T18:35:49.613037 #1553] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = ?, "current_sign_in_at" = ?, "last_sign_in_ip" = ?, "current_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["last_sign_in_at", "2015-11-16 02:35:49.609736"], ["current_sign_in_at", "2015-11-16 02:35:49.609736"], ["last_sign_in_ip", "73.2.51.253"], ["current_sign_in_ip", "73.2.51.253"], ["sign_in_count", 1], ["updated_at", "2015-11-16 02:35:49.611142"], ["id", 2]]
+D, [2015-11-15T18:35:49.616157 #1553] DEBUG -- :   [1m[35m (2.6ms)[0m  commit transaction
+I, [2015-11-15T18:35:49.619226 #1553]  INFO -- : Redirected to http://45.55.9.157/img/
+I, [2015-11-15T18:35:49.619430 #1553]  INFO -- : Completed 302 Found in 111ms (ActiveRecord: 3.3ms)
+I, [2015-11-15T18:35:49.669369 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:35:49 -0800
+I, [2015-11-15T18:35:49.671294 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:35:49.675445 #1553] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:35:49.679671 #1553] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:35:49.704922 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (31.0ms)
+D, [2015-11-15T18:35:49.717646 #1553] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 2]]
+I, [2015-11-15T18:35:49.718553 #1553]  INFO -- : Completed 200 OK in 47ms (Views: 44.4ms | ActiveRecord: 1.8ms)
+I, [2015-11-15T18:35:51.571654 #1553]  INFO -- : Started GET "/img/sharei" for 73.2.51.253 at 2015-11-15 18:35:51 -0800
+I, [2015-11-15T18:35:51.574101 #1553]  INFO -- : Processing by ImageUsersController#share as HTML
+D, [2015-11-15T18:35:51.579303 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:35:51.581679 #1553] DEBUG -- :   [1m[36mImageUser Load (1.9ms)[0m  [1mSELECT "image_users".* FROM "image_users"[0m
+D, [2015-11-15T18:35:51.594811 #1553] DEBUG -- :   [1m[35mImage Load (2.1ms)[0m  SELECT "images".* FROM "images"
+D, [2015-11-15T18:35:51.602213 #1553] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+I, [2015-11-15T18:35:51.622575 #1553]  INFO -- :   Rendered image_users/share.html.erb within layouts/application (45.2ms)
+I, [2015-11-15T18:35:51.624516 #1553]  INFO -- : Completed 200 OK in 50ms (Views: 44.6ms | ActiveRecord: 4.6ms)
+I, [2015-11-15T18:45:02.313032 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:45:02 -0800
+I, [2015-11-15T18:45:02.420182 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:45:02.440593 #1553] DEBUG -- :   [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:45:02.456760 #1553] DEBUG -- :   [1m[36mImage Load (1.6ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:45:02.472809 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (39.1ms)
+I, [2015-11-15T18:45:02.474571 #1553]  INFO -- : Completed 200 OK in 54ms (Views: 40.3ms | ActiveRecord: 3.6ms)
+I, [2015-11-15T18:45:03.118236 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:45:03 -0800
+I, [2015-11-15T18:45:03.120741 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:45:03.125021 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:45:03.127013 #1553] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:45:03.137016 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.1ms)
+I, [2015-11-15T18:45:03.138551 #1553]  INFO -- : Completed 200 OK in 18ms (Views: 14.9ms | ActiveRecord: 1.5ms)
+I, [2015-11-15T18:45:04.177828 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:45:04 -0800
+I, [2015-11-15T18:45:04.180324 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:45:04.184598 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:45:04.186614 #1553] DEBUG -- :   [1m[36mImage Load (1.4ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:45:04.196239 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (12.8ms)
+I, [2015-11-15T18:45:04.197815 #1553]  INFO -- : Completed 200 OK in 17ms (Views: 14.8ms | ActiveRecord: 1.6ms)
+I, [2015-11-15T18:45:04.750132 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:45:04 -0800
+I, [2015-11-15T18:45:04.752652 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:45:04.756807 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:45:04.758710 #1553] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:45:04.769466 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.8ms)
+I, [2015-11-15T18:45:04.770965 #1553]  INFO -- : Completed 200 OK in 18ms (Views: 15.6ms | ActiveRecord: 1.5ms)
+I, [2015-11-15T18:45:05.242644 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:45:05 -0800
+I, [2015-11-15T18:45:05.245097 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:45:05.249538 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:45:05.268831 #1553] DEBUG -- :   [1m[36mImage Load (18.6ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:45:05.279806 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (31.5ms)
+I, [2015-11-15T18:45:05.281322 #1553]  INFO -- : Completed 200 OK in 36ms (Views: 16.2ms | ActiveRecord: 18.8ms)
+I, [2015-11-15T18:46:46.474587 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:46:46 -0800
+I, [2015-11-15T18:46:46.476591 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:46:46.481567 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:46:46.483246 #1553] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:46:46.490376 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (10.9ms)
+I, [2015-11-15T18:46:46.492709 #1553]  INFO -- : Completed 200 OK in 16ms (Views: 13.7ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:46:53.197840 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:46:53 -0800
+I, [2015-11-15T18:46:53.200658 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:46:53.205838 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:46:53.208615 #1553] DEBUG -- :   [1m[36mImage Load (2.0ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:46:53.217821 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.4ms)
+I, [2015-11-15T18:46:53.220077 #1553]  INFO -- : Completed 200 OK in 19ms (Views: 15.8ms | ActiveRecord: 2.2ms)
+I, [2015-11-15T18:46:56.158128 #1553]  INFO -- : Started DELETE "/img/users/sign_out" for 73.2.51.253 at 2015-11-15 18:46:56 -0800
+I, [2015-11-15T18:46:56.166546 #1553]  INFO -- : Processing by Devise::SessionsController#destroy as HTML
+I, [2015-11-15T18:46:56.166640 #1553]  INFO -- :   Parameters: {"authenticity_token"=>"KJ0L9dQRoH0ANbipmsB/LCexihB4cxM7xgKjAGtYmOvdop9+tdyxKAnk8iacqPoG8LYPYINMDHmjTe86oQ6p0w=="}
+D, [2015-11-15T18:46:56.168914 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+D, [2015-11-15T18:46:56.170338 #1553] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:46:56.171783 #1553] DEBUG -- :   [1m[35m (0.1ms)[0m  commit transaction
+I, [2015-11-15T18:46:56.172797 #1553]  INFO -- : Redirected to http://45.55.9.157/img/
+I, [2015-11-15T18:46:56.173009 #1553]  INFO -- : Completed 302 Found in 6ms (ActiveRecord: 0.4ms)
+I, [2015-11-15T18:46:56.261846 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:46:56 -0800
+I, [2015-11-15T18:46:56.263776 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:46:56.267891 #1553] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:46:56.272041 #1553] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:46:56.294738 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (28.3ms)
+I, [2015-11-15T18:46:56.296454 #1553]  INFO -- : Completed 200 OK in 33ms (Views: 30.1ms | ActiveRecord: 1.5ms)
+I, [2015-11-15T18:46:58.009999 #1553]  INFO -- : Started GET "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:46:58 -0800
+I, [2015-11-15T18:46:58.012992 #1553]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-11-15T18:46:58.022222 #1553]  INFO -- :   Rendered devise/shared/_links.html.erb (0.5ms)
+I, [2015-11-15T18:46:58.022342 #1553]  INFO -- :   Rendered devise/sessions/new.html.erb within layouts/application (4.8ms)
+I, [2015-11-15T18:46:58.023767 #1553]  INFO -- : Completed 200 OK in 11ms (Views: 8.7ms | ActiveRecord: 0.0ms)
+I, [2015-11-15T18:47:00.506380 #1553]  INFO -- : Started POST "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:47:00 -0800
+I, [2015-11-15T18:47:00.508537 #1553]  INFO -- : Processing by Devise::SessionsController#create as HTML
+I, [2015-11-15T18:47:00.508634 #1553]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"RwO9/JPwg8NudzWvj5cyEY1DL+gP98IEV6V37RtkNOKF8OGT1JziEbvmD5NIEnt4X3E28rqoVAxEW/8MCZ+txg==", "user"=>{"email"=>"a@a.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+D, [2015-11-15T18:47:00.511250 #1553] DEBUG -- :   [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["email", "a@a.com"]]
+D, [2015-11-15T18:47:00.612071 #1553] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:47:00.614537 #1553] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = ?, "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["last_sign_in_at", "2015-11-16 02:35:28.219190"], ["current_sign_in_at", "2015-11-16 02:47:00.610746"], ["sign_in_count", 4], ["updated_at", "2015-11-16 02:47:00.612453"], ["id", 1]]
+D, [2015-11-15T18:47:00.618456 #1553] DEBUG -- :   [1m[35m (3.3ms)[0m  commit transaction
+I, [2015-11-15T18:47:00.622228 #1553]  INFO -- : Redirected to http://45.55.9.157/img/
+I, [2015-11-15T18:47:00.622426 #1553]  INFO -- : Completed 302 Found in 114ms (ActiveRecord: 4.3ms)
+I, [2015-11-15T18:47:00.674291 #1553]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:47:00 -0800
+I, [2015-11-15T18:47:00.676820 #1553]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:47:00.683243 #1553] DEBUG -- :   [1m[36mImage Load (2.1ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:47:00.689909 #1553] DEBUG -- :   [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:47:00.728877 #1553]  INFO -- :   Rendered images/home.html.erb within layouts/application (48.2ms)
+D, [2015-11-15T18:47:00.732120 #1553] DEBUG -- :   [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:47:00.733655 #1553]  INFO -- : Completed 200 OK in 57ms (Views: 52.2ms | ActiveRecord: 3.1ms)
+I, [2015-11-15T18:47:02.829991 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:47:02 -0800
+I, [2015-11-15T18:47:02.831966 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:47:02.835398 #1553] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:47:02.837050 #1553] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:47:02.843271 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (8.8ms)
+I, [2015-11-15T18:47:02.844534 #1553]  INFO -- : Completed 200 OK in 12ms (Views: 10.4ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:47:17.397282 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:47:17 -0800
+I, [2015-11-15T18:47:17.399141 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:47:17.403960 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:47:17.405773 #1553] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:47:17.414670 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (12.9ms)
+I, [2015-11-15T18:47:17.416131 #1553]  INFO -- : Completed 200 OK in 17ms (Views: 14.7ms | ActiveRecord: 1.4ms)
+I, [2015-11-15T18:49:12.864554 #1553]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:49:12 -0800
+I, [2015-11-15T18:49:12.971853 #1553]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:49:12.987269 #1553] DEBUG -- :   [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:49:13.001445 #1553] DEBUG -- :   [1m[36mImage Load (1.8ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:49:13.016846 #1553]  INFO -- :   Rendered images/index.html.erb within layouts/application (34.8ms)
+I, [2015-11-15T18:49:13.020063 #1553]  INFO -- : Completed 200 OK in 48ms (Views: 36.4ms | ActiveRecord: 3.7ms)
+I, [2015-11-15T18:49:14.478140 #1553]  INFO -- : Started GET "/img/publici" for 73.2.51.253 at 2015-11-15 18:49:14 -0800
+I, [2015-11-15T18:49:14.485016 #1553]  INFO -- : Processing by ImagesController#public as HTML
+D, [2015-11-15T18:49:14.493087 #1553] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:49:14.495159 #1553]  INFO -- :   Rendered images/public.html.erb within layouts/application (5.9ms)
+I, [2015-11-15T18:49:14.495424 #1553]  INFO -- : Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.2ms)
+F, [2015-11-15T18:49:14.498461 #1553] FATAL -- : 
+ActionView::Template::Error (undefined method `each' for nil:NilClass):
+    14:   </thead>
+    15:   
+    16:   <tbody>
+    17:     <% @images.each do |image| %>
+    18:     <% if image.user_id == current_user.id %> 
+    19:      <% if image.private == true %>
+    20:       <tr>
+  app/views/images/public.html.erb:17:in `_app_views_images_public_html_erb___14984742545345291_16916720'
 
-D, [2015-11-14T22:01:55.757526 #10468] DEBUG -- :   [1m[36m (0.4ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
-D, [2015-11-14T22:01:55.759277 #10468] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151113172639"]]
-D, [2015-11-14T22:01:55.762011 #10468] DEBUG -- :   [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
-I, [2015-11-14T22:01:55.762137 #10468]  INFO -- : Migrating to AddNameToUsers (20151113172719)
-D, [2015-11-14T22:01:55.763191 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
-D, [2015-11-14T22:01:55.764293 #10468] DEBUG -- :   [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" ADD "name" varchar[0m
-D, [2015-11-14T22:01:55.765675 #10468] DEBUG -- :   [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151113172719"]]
-D, [2015-11-14T22:01:55.769388 #10468] DEBUG -- :   [1m[36m (3.4ms)[0m  [1mcommit transaction[0m
-I, [2015-11-14T22:01:55.769503 #10468]  INFO -- : Migrating to RenameColumnprivateOrPublicinTableimagestoprivate (20151114173504)
-D, [2015-11-14T22:01:55.770597 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
-D, [2015-11-14T22:01:55.773284 #10468] DEBUG -- :   [1m[36m (0.5ms)[0m  [1mCREATE TEMPORARY TABLE "aimages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "filename" varchar, "private" boolean, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
-D, [2015-11-14T22:01:55.773855 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_images_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_images_on_user_id' AND type='index'
 
-D, [2015-11-14T22:01:55.774967 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "tindex_aimages_on_user_id" ON "aimages" ("user_id")[0m
-D, [2015-11-14T22:01:55.775755 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m  SELECT * FROM "images"
-D, [2015-11-14T22:01:55.776171 #10468] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mDROP TABLE "images"[0m
-D, [2015-11-14T22:01:55.777091 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE TABLE "images" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "filename" varchar, "private" boolean, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
-D, [2015-11-14T22:01:55.777516 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='tindex_aimages_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='tindex_aimages_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.778585 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE  INDEX "index_images_on_user_id" ON "images" ("user_id")
-D, [2015-11-14T22:01:55.779366 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mSELECT * FROM "aimages"[0m
-D, [2015-11-14T22:01:55.779751 #10468] DEBUG -- :   [1m[35m (0.3ms)[0m  DROP TABLE "aimages"
-D, [2015-11-14T22:01:55.780155 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_images_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_images_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.781552 #10468] DEBUG -- :   [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151114173504"]]
-D, [2015-11-14T22:01:55.787416 #10468] DEBUG -- :   [1m[36m (5.4ms)[0m  [1mcommit transaction[0m
-I, [2015-11-14T22:01:55.787744 #10468]  INFO -- : Migrating to RenameColumnuserIdIdinTableimageUserstouserIdwq (20151114174215)
-D, [2015-11-14T22:01:55.791215 #10468] DEBUG -- :   [1m[35m (0.4ms)[0m  begin transaction
-D, [2015-11-14T22:01:55.794801 #10468] DEBUG -- :   [1m[36m (0.6ms)[0m  [1mCREATE TEMPORARY TABLE "aimage_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "image_id_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
-D, [2015-11-14T22:01:55.795836 #10468] DEBUG -- :   [1m[35m (0.3ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
+I, [2015-11-15T18:49:14.596568 #1553]  INFO -- : Started GET "/img/publici" for 73.2.51.253 at 2015-11-15 18:49:14 -0800
+I, [2015-11-15T18:49:14.603309 #1553]  INFO -- : Processing by ImagesController#public as HTML
+D, [2015-11-15T18:49:14.610256 #1553] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:49:14.611285 #1553]  INFO -- :   Rendered images/public.html.erb within layouts/application (4.2ms)
+I, [2015-11-15T18:49:14.612277 #1553]  INFO -- : Completed 500 Internal Server Error in 8ms (ActiveRecord: 0.2ms)
+F, [2015-11-15T18:49:14.614287 #1553] FATAL -- : 
+ActionView::Template::Error (undefined method `each' for nil:NilClass):
+    14:   </thead>
+    15:   
+    16:   <tbody>
+    17:     <% @images.each do |image| %>
+    18:     <% if image.user_id == current_user.id %> 
+    19:      <% if image.private == true %>
+    20:       <tr>
+  app/views/images/public.html.erb:17:in `_app_views_images_public_html_erb___14984742545345291_28201460'
 
-D, [2015-11-14T22:01:55.796610 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.797970 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE  INDEX "tindex_aimage_users_on_image_id_id" ON "aimage_users" ("image_id_id")
-D, [2015-11-14T22:01:55.798831 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "tindex_aimage_users_on_user_id_id" ON "aimage_users" ("user_id")[0m
-D, [2015-11-14T22:01:55.799617 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m  SELECT * FROM "image_users"
-D, [2015-11-14T22:01:55.800076 #10468] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mDROP TABLE "image_users"[0m
-D, [2015-11-14T22:01:55.800996 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE TABLE "image_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "image_id_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
-D, [2015-11-14T22:01:55.801429 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='tindex_aimage_users_on_user_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='tindex_aimage_users_on_user_id_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.801845 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='tindex_aimage_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='tindex_aimage_users_on_image_id_id' AND type='index'
 
-D, [2015-11-14T22:01:55.802896 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_image_users_on_user_id_id" ON "image_users" ("user_id")[0m
-D, [2015-11-14T22:01:55.803793 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.804296 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_image_users_on_image_id_id" ON "image_users" ("image_id_id")[0m
-D, [2015-11-14T22:01:55.804975 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m  SELECT * FROM "aimage_users"
-D, [2015-11-14T22:01:55.805357 #10468] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mDROP TABLE "aimage_users"[0m
-D, [2015-11-14T22:01:55.805790 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.806212 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.806749 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.807205 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.807922 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.808319 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.808807 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE  INDEX "index_image_users_on_user_id" ON "image_users" ("user_id")
-D, [2015-11-14T22:01:55.809259 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.809657 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.810060 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.810550 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  DROP INDEX "index_image_users_on_user_id_id"
-D, [2015-11-14T22:01:55.812117 #10468] DEBUG -- :   [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20151114174215"]]
-D, [2015-11-14T22:01:55.815812 #10468] DEBUG -- :   [1m[35m (3.4ms)[0m  commit transaction
-I, [2015-11-14T22:01:55.815956 #10468]  INFO -- : Migrating to RenameColumnimageIdIdinTableimageUserstoimageId (20151114174452)
-D, [2015-11-14T22:01:55.817306 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
-D, [2015-11-14T22:01:55.820269 #10468] DEBUG -- :   [1m[35m (0.4ms)[0m  CREATE TEMPORARY TABLE "aimage_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "image_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
-D, [2015-11-14T22:01:55.821033 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.821618 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.822572 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "tindex_aimage_users_on_user_id" ON "aimage_users" ("user_id")[0m
-D, [2015-11-14T22:01:55.823405 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE  INDEX "tindex_aimage_users_on_image_id_id" ON "aimage_users" ("image_id")
-D, [2015-11-14T22:01:55.824080 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mSELECT * FROM "image_users"[0m
-D, [2015-11-14T22:01:55.824541 #10468] DEBUG -- :   [1m[35m (0.3ms)[0m  DROP TABLE "image_users"
-D, [2015-11-14T22:01:55.825429 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCREATE TABLE "image_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "image_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
-D, [2015-11-14T22:01:55.825834 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='tindex_aimage_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='tindex_aimage_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.826238 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='tindex_aimage_users_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='tindex_aimage_users_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.827290 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE  INDEX "index_image_users_on_image_id_id" ON "image_users" ("image_id")
-D, [2015-11-14T22:01:55.828138 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.828618 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  CREATE  INDEX "index_image_users_on_user_id" ON "image_users" ("user_id")
-D, [2015-11-14T22:01:55.829317 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mSELECT * FROM "aimage_users"[0m
-D, [2015-11-14T22:01:55.829647 #10468] DEBUG -- :   [1m[35m (0.2ms)[0m  DROP TABLE "aimage_users"
-D, [2015-11-14T22:01:55.830067 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.830483 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.831030 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.831445 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.832205 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.832576 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.833095 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_image_users_on_image_id" ON "image_users" ("image_id")[0m
-D, [2015-11-14T22:01:55.833539 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id' AND type='index'
-
-D, [2015-11-14T22:01:55.833955 #10468] DEBUG -- :   [1m[36m (0.1ms)[0m  [1m            SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_user_id' AND type='index'
-[0m
-D, [2015-11-14T22:01:55.834335 #10468] DEBUG -- :   [1m[35m (0.1ms)[0m              SELECT sql
-            FROM sqlite_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-            UNION ALL
-            SELECT sql
-            FROM sqlite_temp_master
-            WHERE name='index_image_users_on_image_id_id' AND type='index'
-
-D, [2015-11-14T22:01:55.834856 #10468] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mDROP INDEX "index_image_users_on_image_id_id"[0m
-D, [2015-11-14T22:01:55.836109 #10468] DEBUG -- :   [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151114174452"]]
-D, [2015-11-14T22:01:55.838690 #10468] DEBUG -- :   [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+I, [2015-11-15T18:51:49.111431 #1552]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:51:49 -0800
+I, [2015-11-15T18:51:49.147097 #1552]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:51:49.178636 #1552] DEBUG -- :   [1m[36mImage Load (5.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:51:49.207799 #1552] DEBUG -- :   [1m[35mUser Load (1.0ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:51:49.255163 #1552]  INFO -- :   Rendered images/home.html.erb within layouts/application (87.1ms)
+I, [2015-11-15T18:51:49.263391 #1552]  INFO -- : Completed 200 OK in 116ms (Views: 94.9ms | ActiveRecord: 7.3ms)
+I, [2015-11-15T18:51:52.062356 #1552]  INFO -- : Started GET "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:51:52 -0800
+I, [2015-11-15T18:51:52.066116 #1552]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-11-15T18:51:52.096706 #1552]  INFO -- :   Rendered devise/shared/_links.html.erb (2.0ms)
+I, [2015-11-15T18:51:52.096900 #1552]  INFO -- :   Rendered devise/sessions/new.html.erb within layouts/application (23.4ms)
+I, [2015-11-15T18:51:52.098513 #1552]  INFO -- : Completed 200 OK in 32ms (Views: 28.2ms | ActiveRecord: 0.0ms)
+I, [2015-11-15T18:51:54.729391 #1552]  INFO -- : Started POST "/img/users/sign_in" for 73.2.51.253 at 2015-11-15 18:51:54 -0800
+I, [2015-11-15T18:51:54.732304 #1552]  INFO -- : Processing by Devise::SessionsController#create as HTML
+I, [2015-11-15T18:51:54.732424 #1552]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"dF/PyuSBylwd2d0SVj7Yy9DNQCs+DDEWiFXjkLOJY+tPHvAHR0h7NYcU8hWrU8tFBN1HQwYo2qtHYpZsPCCqIA==", "user"=>{"email"=>"a@a.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+D, [2015-11-15T18:51:54.743048 #1552] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["email", "a@a.com"]]
+D, [2015-11-15T18:51:54.857776 #1552] DEBUG -- :   [1m[35m (0.2ms)[0m  begin transaction
+D, [2015-11-15T18:51:54.861806 #1552] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = ?, "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["last_sign_in_at", "2015-11-16 02:47:00.610746"], ["current_sign_in_at", "2015-11-16 02:51:54.856106"], ["sign_in_count", 5], ["updated_at", "2015-11-16 02:51:54.858469"], ["id", 1]]
+D, [2015-11-15T18:51:54.864697 #1552] DEBUG -- :   [1m[35m (2.2ms)[0m  commit transaction
+I, [2015-11-15T18:51:54.869400 #1552]  INFO -- : Redirected to http://45.55.9.157/img/
+I, [2015-11-15T18:51:54.869608 #1552]  INFO -- : Completed 302 Found in 137ms (ActiveRecord: 3.3ms)
+I, [2015-11-15T18:51:54.921106 #1552]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:51:54 -0800
+I, [2015-11-15T18:51:54.923247 #1552]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:51:54.927598 #1552] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:51:54.932342 #1552] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:51:54.960373 #1552]  INFO -- :   Rendered images/home.html.erb within layouts/application (34.3ms)
+D, [2015-11-15T18:51:54.962939 #1552] DEBUG -- :   [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:51:54.964079 #1552]  INFO -- : Completed 200 OK in 41ms (Views: 37.7ms | ActiveRecord: 2.0ms)
+I, [2015-11-15T18:51:57.596559 #1552]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:51:57 -0800
+I, [2015-11-15T18:51:57.598794 #1552]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:51:57.604631 #1552] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:51:57.606742 #1552] DEBUG -- :   [1m[36mImage Load (1.5ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:51:57.617849 #1552]  INFO -- :   Rendered images/index.html.erb within layouts/application (15.5ms)
+I, [2015-11-15T18:51:57.619874 #1552]  INFO -- : Completed 200 OK in 21ms (Views: 18.3ms | ActiveRecord: 1.7ms)
+I, [2015-11-15T18:52:00.032419 #1552]  INFO -- : Started GET "/img/publici" for 73.2.51.253 at 2015-11-15 18:52:00 -0800
+I, [2015-11-15T18:52:00.035427 #1552]  INFO -- : Processing by ImagesController#public as HTML
+D, [2015-11-15T18:52:00.040794 #1552] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:52:00.042918 #1552] DEBUG -- :   [1m[36mImage Load (1.5ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:52:00.050409 #1552]  INFO -- :   Rendered images/public.html.erb within layouts/application (11.7ms)
+I, [2015-11-15T18:52:00.052049 #1552]  INFO -- : Completed 200 OK in 16ms (Views: 13.9ms | ActiveRecord: 1.6ms)
+I, [2015-11-15T18:56:08.845337 #1552]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:56:08 -0800
+I, [2015-11-15T18:56:08.847947 #1552]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:56:08.852580 #1552] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:56:08.854534 #1552] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:56:08.863769 #1552]  INFO -- :   Rendered images/index.html.erb within layouts/application (12.5ms)
+I, [2015-11-15T18:56:08.865693 #1552]  INFO -- : Completed 200 OK in 18ms (Views: 15.0ms | ActiveRecord: 1.5ms)
+I, [2015-11-15T18:56:09.545608 #1552]  INFO -- : Started GET "/img/publici" for 73.2.51.253 at 2015-11-15 18:56:09 -0800
+I, [2015-11-15T18:56:09.548534 #1552]  INFO -- : Processing by ImagesController#public as HTML
+D, [2015-11-15T18:56:09.552816 #1552] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:56:09.555536 #1552] DEBUG -- :   [1m[36mImage Load (1.9ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:56:09.573223 #1552]  INFO -- :   Rendered images/public.html.erb within layouts/application (21.6ms)
+I, [2015-11-15T18:56:09.574690 #1552]  INFO -- : Completed 200 OK in 26ms (Views: 22.9ms | ActiveRecord: 2.1ms)
+I, [2015-11-15T18:56:10.765284 #1552]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:56:10 -0800
+I, [2015-11-15T18:56:10.767552 #1552]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:56:10.771421 #1552] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:56:10.773099 #1552] DEBUG -- :   [1m[36mImage Load (1.1ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:56:10.780979 #1552]  INFO -- :   Rendered images/index.html.erb within layouts/application (10.6ms)
+I, [2015-11-15T18:56:10.782381 #1552]  INFO -- : Completed 200 OK in 15ms (Views: 12.5ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:56:13.152790 #1552]  INFO -- : Started GET "/img/publici" for 73.2.51.253 at 2015-11-15 18:56:13 -0800
+I, [2015-11-15T18:56:13.154936 #1552]  INFO -- : Processing by ImagesController#public as HTML
+D, [2015-11-15T18:56:13.158698 #1552] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:56:13.160357 #1552] DEBUG -- :   [1m[36mImage Load (1.1ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:56:13.165982 #1552]  INFO -- :   Rendered images/public.html.erb within layouts/application (8.4ms)
+I, [2015-11-15T18:56:13.167204 #1552]  INFO -- : Completed 200 OK in 12ms (Views: 10.0ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:56:14.012662 #1552]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:56:14 -0800
+I, [2015-11-15T18:56:14.015526 #1552]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:56:14.019623 #1552] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:56:14.021307 #1552] DEBUG -- :   [1m[36mImage Load (1.1ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:56:14.029400 #1552]  INFO -- :   Rendered images/index.html.erb within layouts/application (10.9ms)
+I, [2015-11-15T18:56:14.030990 #1552]  INFO -- : Completed 200 OK in 15ms (Views: 13.0ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:58:35.836125 #1536]  INFO -- : Started GET "/img/" for 73.2.51.253 at 2015-11-15 18:58:35 -0800
+I, [2015-11-15T18:58:35.865355 #1536]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-11-15T18:58:35.889316 #1536] DEBUG -- :   [1m[36mImage Load (3.0ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-11-15T18:58:35.913808 #1536] DEBUG -- :   [1m[35mUser Load (1.0ms)[0m  SELECT "users".* FROM "users"
+I, [2015-11-15T18:58:35.958779 #1536]  INFO -- :   Rendered images/home.html.erb within layouts/application (75.5ms)
+D, [2015-11-15T18:58:35.968497 #1536] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:58:35.969988 #1536]  INFO -- : Completed 200 OK in 104ms (Views: 86.2ms | ActiveRecord: 5.3ms)
+I, [2015-11-15T18:58:39.428366 #1536]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:58:39 -0800
+I, [2015-11-15T18:58:39.432913 #1536]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:58:39.439957 #1536] DEBUG -- :   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:58:39.441765 #1536] DEBUG -- :   [1m[36mImage Load (1.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:58:39.450731 #1536]  INFO -- :   Rendered images/index.html.erb within layouts/application (13.1ms)
+I, [2015-11-15T18:58:39.452322 #1536]  INFO -- : Completed 200 OK in 19ms (Views: 16.5ms | ActiveRecord: 1.4ms)
+I, [2015-11-15T18:58:40.721493 #1536]  INFO -- : Started GET "/img/publici" for 73.2.51.253 at 2015-11-15 18:58:40 -0800
+I, [2015-11-15T18:58:40.724513 #1536]  INFO -- : Processing by ImagesController#public as HTML
+D, [2015-11-15T18:58:40.729380 #1536] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:58:40.731142 #1536] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:58:40.737605 #1536]  INFO -- :   Rendered images/public.html.erb within layouts/application (10.0ms)
+I, [2015-11-15T18:58:40.739019 #1536]  INFO -- : Completed 200 OK in 14ms (Views: 12.1ms | ActiveRecord: 1.4ms)
+I, [2015-11-15T18:58:42.691678 #1536]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:58:42 -0800
+I, [2015-11-15T18:58:42.695265 #1536]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:58:42.701915 #1536] DEBUG -- :   [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:58:42.705321 #1536] DEBUG -- :   [1m[36mImage Load (2.4ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:58:42.714354 #1536]  INFO -- :   Rendered images/index.html.erb within layouts/application (14.3ms)
+I, [2015-11-15T18:58:42.715790 #1536]  INFO -- : Completed 200 OK in 20ms (Views: 16.3ms | ActiveRecord: 2.7ms)
+I, [2015-11-15T18:58:43.934698 #1536]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:58:43 -0800
+I, [2015-11-15T18:58:43.939645 #1536]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:58:43.939781 #1536]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:58:43.944826 #1536] DEBUG -- :   [1m[35mImage Load (0.3ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:58:43.951945 #1536] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "7"]]
+D, [2015-11-15T18:58:43.953155 #1536] DEBUG -- :   [1m[35m (0.2ms)[0m  begin transaction
+D, [2015-11-15T18:58:43.955974 #1536] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:58:43.953573"], ["updated_at", "2015-11-16 02:58:43.953573"]]
+D, [2015-11-15T18:58:43.959330 #1536] DEBUG -- :   [1m[35m (2.8ms)[0m  commit transaction
+D, [2015-11-15T18:58:43.967380 #1536] DEBUG -- :   [1m[36mTag Load (3.4ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:58:43.989980 #1536]  INFO -- :   Rendered images/show.html.erb within layouts/application (28.0ms)
+D, [2015-11-15T18:58:43.992292 #1536] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:58:43.993550 #1536]  INFO -- : Completed 200 OK in 54ms (Views: 29.8ms | ActiveRecord: 8.1ms)
+I, [2015-11-15T18:58:46.598296 #1536]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:58:46 -0800
+I, [2015-11-15T18:58:46.600566 #1536]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:58:46.604565 #1536] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+D, [2015-11-15T18:58:46.606554 #1536] DEBUG -- :   [1m[35mImage Load (1.4ms)[0m  SELECT "images".* FROM "images"
+I, [2015-11-15T18:58:46.616497 #1536]  INFO -- :   Rendered images/index.html.erb within layouts/application (12.9ms)
+I, [2015-11-15T18:58:46.618340 #1536]  INFO -- : Completed 200 OK in 18ms (Views: 15.0ms | ActiveRecord: 1.6ms)
+I, [2015-11-15T18:58:48.865944 #1536]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:58:48 -0800
+I, [2015-11-15T18:58:48.868041 #1536]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:58:48.868115 #1536]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:58:48.869439 #1536] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:58:48.870080 #1536] DEBUG -- :   [1m[35mCACHE (0.0ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", "7"]]
+D, [2015-11-15T18:58:48.870698 #1536] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:58:48.872366 #1536] DEBUG -- :   [1m[35mSQL (0.2ms)[0m  INSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2015-11-16 02:58:48.870917"], ["updated_at", "2015-11-16 02:58:48.870917"]]
+D, [2015-11-15T18:58:48.875065 #1536] DEBUG -- :   [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+D, [2015-11-15T18:58:48.881287 #1536] DEBUG -- :   [1m[35mTag Load (3.0ms)[0m  SELECT "tags".* FROM "tags"
+I, [2015-11-15T18:58:48.894919 #1536]  INFO -- :   Rendered images/show.html.erb within layouts/application (17.4ms)
+D, [2015-11-15T18:58:48.897104 #1536] DEBUG -- :   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:58:48.898316 #1536]  INFO -- : Completed 200 OK in 30ms (Views: 19.6ms | ActiveRecord: 6.1ms)
+I, [2015-11-15T18:58:50.426896 #1536]  INFO -- : Started GET "/img/images/7/tags" for 73.2.51.253 at 2015-11-15 18:58:50 -0800
+I, [2015-11-15T18:58:50.433024 #1536]  INFO -- : Processing by TagsController#index as HTML
+I, [2015-11-15T18:58:50.433156 #1536]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:58:50.434664 #1536] DEBUG -- :   [1m[35mImage Load (0.2ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:58:50.456126 #1536] DEBUG -- :   [1m[36mTag Load (13.9ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:58:50.466938 #1536]  INFO -- :   Rendered tags/index.html.erb within layouts/application (27.2ms)
+D, [2015-11-15T18:58:50.468733 #1536] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:58:50.469778 #1536]  INFO -- : Completed 200 OK in 36ms (Views: 20.5ms | ActiveRecord: 14.2ms)
+I, [2015-11-15T18:58:52.020411 #1536]  INFO -- : Started GET "/img/images/7/tags/new" for 73.2.51.253 at 2015-11-15 18:58:52 -0800
+I, [2015-11-15T18:58:52.022675 #1536]  INFO -- : Processing by TagsController#new as HTML
+I, [2015-11-15T18:58:52.022741 #1536]  INFO -- :   Parameters: {"image_id"=>"7"}
+D, [2015-11-15T18:58:52.023982 #1536] DEBUG -- :   [1m[36mImage Load (0.2ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", 7]]
+D, [2015-11-15T18:58:52.024664 #1536] DEBUG -- :   [1m[35m (0.1ms)[0m  begin transaction
+D, [2015-11-15T18:58:52.026195 #1536] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tags" ("image_id", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["image_id", 7], ["created_at", "2015-11-16 02:58:52.024939"], ["updated_at", "2015-11-16 02:58:52.024939"]]
+D, [2015-11-15T18:58:52.029441 #1536] DEBUG -- :   [1m[35m (2.8ms)[0m  commit transaction
+I, [2015-11-15T18:58:52.049960 #1536]  INFO -- :   Rendered tags/_form.html.erb (13.8ms)
+I, [2015-11-15T18:58:52.050098 #1536]  INFO -- :   Rendered tags/new.html.erb within layouts/application (16.0ms)
+D, [2015-11-15T18:58:52.051721 #1536] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:58:52.052605 #1536]  INFO -- : Completed 200 OK in 30ms (Views: 22.7ms | ActiveRecord: 3.5ms)
+I, [2015-11-15T18:58:55.884417 #1536]  INFO -- : Started PATCH "/img/tags/507" for 73.2.51.253 at 2015-11-15 18:58:55 -0800
+I, [2015-11-15T18:58:55.888409 #1536]  INFO -- : Processing by TagsController#update as HTML
+I, [2015-11-15T18:58:55.888585 #1536]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"Dzv+Mp4xG6A+lv/KjLBYyIeuv5x/g//gCpbnHRULJrXtIz6IPMjBsVsOQ5jt5kl7ZSjdNMegBebYiQtrMdtdLQ==", "tag"=>{"str"=>"Yes"}, "commit"=>"Update Tag", "id"=>"507"}
+D, [2015-11-15T18:58:55.892201 #1536] DEBUG -- :   [1m[35mTag Load (0.5ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = ? LIMIT 1  [["id", 507]]
+D, [2015-11-15T18:58:55.893444 #1536] DEBUG -- :   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+D, [2015-11-15T18:58:55.896635 #1536] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  UPDATE "tags" SET "str" = ?, "updated_at" = ? WHERE "tags"."id" = ?  [["str", "Yes"], ["updated_at", "2015-11-16 02:58:55.893993"], ["id", 507]]
+D, [2015-11-15T18:58:55.905657 #1536] DEBUG -- :   [1m[36m (8.5ms)[0m  [1mcommit transaction[0m
+I, [2015-11-15T18:58:55.907390 #1536]  INFO -- : Redirected to http://45.55.9.157/img/tags/507
+I, [2015-11-15T18:58:55.907643 #1536]  INFO -- : Completed 302 Found in 19ms (ActiveRecord: 9.4ms)
+I, [2015-11-15T18:58:56.002648 #1536]  INFO -- : Started GET "/img/tags/507" for 73.2.51.253 at 2015-11-15 18:58:56 -0800
+I, [2015-11-15T18:58:56.004794 #1536]  INFO -- : Processing by TagsController#show as HTML
+I, [2015-11-15T18:58:56.004868 #1536]  INFO -- :   Parameters: {"id"=>"507"}
+D, [2015-11-15T18:58:56.006015 #1536] DEBUG -- :   [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = ? LIMIT 1  [["id", 507]]
+I, [2015-11-15T18:58:56.013252 #1536]  INFO -- :   Rendered tags/show.html.erb within layouts/application (1.2ms)
+D, [2015-11-15T18:58:56.015017 #1536] DEBUG -- :   [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-11-15T18:58:56.015901 #1536]  INFO -- : Completed 200 OK in 11ms (Views: 9.3ms | ActiveRecord: 0.3ms)
+I, [2015-11-15T18:58:57.098214 #1536]  INFO -- : Started GET "/img/images" for 73.2.51.253 at 2015-11-15 18:58:57 -0800
+I, [2015-11-15T18:58:57.100518 #1536]  INFO -- : Processing by ImagesController#index as HTML
+D, [2015-11-15T18:58:57.104639 #1536] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-11-15T18:58:57.106492 #1536] DEBUG -- :   [1m[36mImage Load (1.2ms)[0m  [1mSELECT "images".* FROM "images"[0m
+I, [2015-11-15T18:58:57.114847 #1536]  INFO -- :   Rendered images/index.html.erb within layouts/application (11.3ms)
+I, [2015-11-15T18:58:57.116316 #1536]  INFO -- : Completed 200 OK in 16ms (Views: 13.3ms | ActiveRecord: 1.3ms)
+I, [2015-11-15T18:58:57.790362 #1536]  INFO -- : Started GET "/img/images/7" for 73.2.51.253 at 2015-11-15 18:58:57 -0800
+I, [2015-11-15T18:58:57.794112 #1536]  INFO -- : Processing by ImagesController#show as HTML
+I, [2015-11-15T18:58:57.794250 #1536]  INFO -- :   Parameters: {"id"=>"7"}
+D, [2015-11-15T18:58:57.796657 #1536] DEBUG -- :   [1m[35mImage Load (0.3ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1  [["id", 7]]
+D, [2015-11-15T18:58:57.797775 #1536] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = ? LIMIT 1[0m  [["id", "7"]]
+D, [2015-11-15T18:58:57.799143 #1536] DEBUG -- :   [1m[35m (0.2ms)[0m  begin transaction
+D, [2015-11-15T18:58:57.801740 #1536] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "image_users" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2015-11-16 02:58:57.799615"], ["updated_at", "2015-11-16 02:58:57.799615"]]
+D, [2015-11-15T18:58:57.805652 #1536] DEBUG -- :   [1m[35m (3.4ms)[0m  commit transaction
+D, [2015-11-15T18:58:57.810846 #1536] DEBUG -- :   [1m[36mTag Load (2.2ms)[0m  [1mSELECT "tags".* FROM "tags"[0m
+I, [2015-11-15T18:58:57.821625 #1536]  INFO -- :   Rendered images/show.html.erb within layouts/application (13.7ms)
+D, [2015-11-15T18:58:57.823360 #1536] DEBUG -- :   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-11-15T18:58:57.824234 #1536]  INFO -- : Completed 200 OK in 30ms (Views: 15.8ms | ActiveRecord: 6.7ms)

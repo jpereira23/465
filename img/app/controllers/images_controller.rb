@@ -3,6 +3,10 @@ class ImagesController < ApplicationController
 
   # GET /images
   # GET /images.json
+
+  def public 
+    @images = Image.all
+  end 
   def tag
     @images = Image.all
   end
@@ -90,6 +94,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:filename, :private_or_public, :user_id)
+      params.require(:image).permit(:filename, :private, :user_id)
     end
 end

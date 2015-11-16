@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :tags
 
   resources :images do 
     resources :image_users, shallow: true
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   get 'share' => 'images#share'
   get 'sharei' => 'image_users#share'
   get 'tagi' => 'images#tag'
+  get 'publici' => 'images#public'
 
   root 'images#home'
   # The priority is based upon order of creation: first created -> highest priority.
