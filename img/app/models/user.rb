@@ -3,4 +3,10 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-end
+
+  def full_user 
+    full_name = "#{name}, #{email}"
+
+    return full_name
+  end 
+end 

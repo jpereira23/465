@@ -2,7 +2,7 @@
 <body>
     <h1>All Public Images</h1>
     <% @images.each do |image| %> 
-    <% if image.private == true %> 
+    <% if image.private == false %> 
     <div class="floated_img"> 
       <%= link_to image_tag(root_url + "/images/" + image.filename, size:"350x350", alt:image.filename), image %> 
       <% @users.each do |user| %> 
