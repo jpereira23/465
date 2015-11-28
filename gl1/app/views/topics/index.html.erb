@@ -1,0 +1,17 @@
+<h1>Listing Topics</h1> 
+
+    <% @topics.each do |topic| %> 
+    <p>
+         <h2><%= topic.title %></h2> 
+         <h3><%= topic.description %></h3> 
+         <%= config_time(topic.hour) %> 
+         <%= topic.view %>
+         <%= link_to 'Show', topic %>
+         <%= link_to 'Edit', edit_topic_path(topic) %> 
+         <%= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' } %> 
+  </p>     
+<% end %> 
+
+<br> 
+
+<%= link_to 'New Topic', new_topic_path %>

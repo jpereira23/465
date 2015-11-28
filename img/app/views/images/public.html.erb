@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<% if user_signed_in? %> 
+
+<h1><%= current_user.name %>'s  Images</h1>
+<br><br>
+<table>
+  <thead>
+    <tr>
+      <th>Images</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @images.each do |image| %>
+    <% if image.user_id == current_user.id %> 
+     <% if image.private == false %>
+      <tr>
+        <td><%= link_to image_tag(root_url + "/images/" + image.filename, size: "100x100", alt:image.filename), image %></td>
+        <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      
+      </tr>
+      <% end %>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+  <%= link_to 'New Image', new_image_path %> 
+<% else %>
+
+<h5>Log in to see your images</h5>
+<% end %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  view: 1
+  hour: 1
+
+two:
+  title: MyString
+  description: MyString
+  view: 1
+  hour: 1

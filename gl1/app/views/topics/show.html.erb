@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p> 
+
+
+<p> 
+  <strong>Title:</strong> 
+  <%= @topic.title %> 
+</p> 
+<p> 
+  <strong>Description:</strong> 
+  <%= @topic.description %> 
+</p> 
+<p> 
+  <strong>Views:</strong> 
+  <%= @topic.view %> 
+  
+</p> 
+
+<%= link_to 'Show Comments', topic_comments_path(@topic) %> |
+<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%= link_to 'Home Page', topics_path %> 
