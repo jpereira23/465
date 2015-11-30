@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+<% page_header "#{@article.title}" %>
+<body id="work" >
+
+    <p>
+      <%= @article.description %>
+    </p>
+   <p> 
+     <%= image_tag(root_url + "/images/" + @article.filename) %> 
+    <p>
+
+  <div id="work2">
+  <br><br><br>
+  
+     <h4><%= @article.story %></h4>
+
+     <br><br><br>
+     </div> 
+</body> 
+ <p>
+      <%= @article.views %>
+      <%= @article.likes %>
+    </p>
+
+  <%= link_to 'Edit', edit_article_path(@article) %> |
+  <%= link_to 'Back', articles_path %>

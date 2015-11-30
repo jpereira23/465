@@ -1,0 +1,21 @@
+// Place all the styles related to the Articles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#work {
+  margin: 0; 
+  padding: 25px, 35px;
+  font-family: Arial, sans-serif; 
+  font-size: 1.2em; 
+  font-color: black;
+  font-weight: bold; 
+  background: url('old-white-background.jpg'); 
+  background-size: 100%; 
+}
+
+#work2 { 
+  background: rgba(0, 63, 76, 0.5); 
+  left: 5px; 
+}
+
