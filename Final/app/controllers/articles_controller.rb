@@ -10,8 +10,20 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @article = Article.find(params[:id])
+    @tmp = @article.views + 1
+    @article.views = @tmp
+    @article.save 
+    
   end
-
+  
+  def like
+    @article = Article.find(params[:id])
+    @tmp = @article.likes + 1
+    @article.likes = @tmp
+    @article.save
+    
+  end 
   # GET /articles/new
   def new
     @article = Article.new

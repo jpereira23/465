@@ -5,9 +5,8 @@
        <p><%= article.title %></p> 
        <p><%= article.description %></p>
 	<p><%= link_to image_tag(root_url + "/images/" + article.filename), article %>
-        <p><%= article.views %> <span class="glyphicon glyphicon-barcode"></span>
-        <%= article.likes %> <span class="glyphicon glyphicon-thumbs-up"></span></p>
-
+        <p>  <span class="glyphicon glyphicon-eye-open"></span> <%= article.views %> <br>        
+        <span class="glyphicon glyphicon-thumbs-up"></span> <%= article.likes %></p>
        <p> <%= link_to 'Delete Article', article, method: :delete, data: { confirm: 'Are you sure?' } %></p>
        </div>
     <% end %>

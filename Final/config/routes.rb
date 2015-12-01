@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :articles
-	root :to => 'articles#index'
 
-
+  root "articles#index"
+  resources :articles do
+	member do
+	  get 'articles/:id/like' => 'articles#like', as: :articles_like
+	end 
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
