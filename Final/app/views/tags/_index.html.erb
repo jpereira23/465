@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Tags: </h3>
+  <% @tag_articles.each do |article| %> 
+    <% if article.article_id == the_id %> 
+      <% @tags.each do |tag| %> 
+       <% if article.tag_id == tag.id %> 
+        #<%= tag.str %>
+       <% end %>
+      <% end %>
+    <% end %> 
+  <% end %>
+
+<br><br><br>
+

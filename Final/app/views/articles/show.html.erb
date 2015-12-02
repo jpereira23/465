@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
-<% page_header "#{@article.title}" %>
+
 <body id="work" >
+<% page_header "#{@article.title}" %>
 
     <p>
       <%= @article.description %>
@@ -9,17 +10,18 @@
      <%= image_tag(root_url + "/images/" + @article.filename) %> 
     <p>
 
+  <%= render 'tags/index', :the_id => @article.id %>
   <div id="work2">
   <br><br><br>
   
-     <h4><%= @article.story %></h4>
+     <%= @article.story %>
+<br><br>
+  </div>
 
-     <br><br><br>
-     </div> 
+    <br><br><br><br>
      <strong> <%= @article.views %> <span class="glyphicon glyphicon-eye-open"></strong><br>
      <strong> <%= @article.likes %> <%= link_to  '<span class="glyphicon glyphicon-thumbs-up"></span>'.html_safe, articles_like_article_path  %>  </strong><br><br><br>
-    
-
+     <%= render 'tags/form', :the_id => @article.id %>
 </body> 
   <%= link_to 'Edit', edit_article_path(@article) %> |
   <%= link_to 'Back', articles_path %>

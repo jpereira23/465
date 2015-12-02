@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
 
+  resources :tag_articles
+  resources :tags
   devise_for :users
   root "articles#index"
+
   resources :articles do
+    resources :tag_articles, shallow: true
 	member do
 	  get 'articles/:id/like' => 'articles#like', as: :articles_like
+
 	end 
   end
+  
+  resource :users do 
+    resources :tag_users, shallow: true 
+  end 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -3,6 +3,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles
   # GET /articles.json
+
   def index
     @articles = Article.all
   end
@@ -11,22 +12,25 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article = Article.find(params[:id])
-    @tmp = @article.views + 1
-    @article.views = @tmp
+    @article.views = @article.views + 1
     @article.save 
-    
+    @tag = Tag.new
+    @tags = Tag.all
+    @tag_articles = TagArticle.all
   end
   
+
   def like
     @article = Article.find(params[:id])
     @tmp = @article.likes + 1
     @article.likes = @tmp
     @article.save
-    
+    redirect_to :action => :show, :id => params[:id] 
   end 
   # GET /articles/new
   def new
     @article = Article.new
+    @tag = Tag.new
   end
 
   # GET /articles/1/edit
@@ -37,7 +41,6 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
-    
   @article.filename = (0...8).map { (65 + rand(26)).chr }.join + ".jpg"
 		@uploaded_io = params[:article][:uploaded_file]
 
@@ -86,4 +89,8 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :description, :story, :views, :likes, :filename)
     end
+ 
+    def tag_params 
+      params.require(:tag).permit(:str, :like, :dislike, :user_id, :article_id)
+    end 
 end
