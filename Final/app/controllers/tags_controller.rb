@@ -5,6 +5,8 @@ class TagsController < ApplicationController
   # GET /tags.json
   def index
     @tags = Tag.all
+    @tag_devises = TagDevice.all 
+    @tag_articles = TagArticle.all
   end
 
   # GET /tags/1
@@ -31,7 +33,10 @@ class TagsController < ApplicationController
     @tag_article.tag_id = Tag.count(:all)
     @tag_article.article_id = @article.id
     @tag_article.save    
- 
+    @tag_devise = TagDevise.new 
+    @tag_devise.devise_id = current_user.id 
+    @tag_devise.tag_id = Tag.count(:all) + 1
+    @tag_devise.save
       if @tag.save
         redirect_to :controller => :articles, :action => :show, :id => @article.id
       else

@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h3>Tags: </h3>
   <% @tag_articles.each do |article| %> 
     <% if article.article_id == the_id %> 
       <% @tags.each do |tag| %> 
@@ -11,16 +10,17 @@
            <div class="modal-dialog">
             <div class="modal-content"> 
              <div class="modal-header"> 
-               <h4 class="modal-title" id="myModalLabel"> 
-                 <%= tag.str %> 
-               </h4> 
+                  #<%= tag.str %> 
              </div> 
              <div class="modal-body"> 
                   <% @tag_devises.each do |devices| %>
-                     <% if devices.devise_id == current_user.id %> 
-                       <%= tag.str %> 
+                    <% @users.each do |user| %> 
+                     <% if devices.devise_id == user.id %> 
+                       <strong>User: </strong> 
+                          <%= user.email %>
                        <% break %>
                      <% end %> 
+                    <% end %> 
                   <% end %> 
              </div> 
              <div class="modal-footer"> 

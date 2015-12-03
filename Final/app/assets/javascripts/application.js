@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require social-share-button
+//= require bootstrap/modal
 //= require turbolinks
 //= require_tree .

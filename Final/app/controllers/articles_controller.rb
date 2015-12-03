@@ -17,6 +17,9 @@ class ArticlesController < ApplicationController
     @tag = Tag.new
     @tags = Tag.all
     @tag_articles = TagArticle.all
+    @tag_devises = TagDevise.all 
+    @users = User.all
+
   end
   
 

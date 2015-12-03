@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :tag_devises
   resources :tag_articles
   resources :tags
   devise_for :users
