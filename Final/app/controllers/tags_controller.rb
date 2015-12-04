@@ -9,6 +9,22 @@ class TagsController < ApplicationController
     @tag_articles = TagArticle.all
   end
 
+  def like
+    @tag = Tag.find(params[:a_id])
+    @tmp = @tag.like 
+    @tag.like = @tmp + 1
+    @tag.save 
+    redirect_to :controller => :articles, :action => :show, :id => params[:article_id]
+  end 
+
+  def dislike 
+    @tag = Tag.find(params[:a_id]) 
+    @tmp = @tag.like 
+    @tag.like = @tmp - 1 
+    @tag.save 
+    redirect_to :controller => :articles, :action => :show, :id => params[:article_id]
+  end 
+  
   # GET /tags/1
   # GET /tags/1.json
   def show
@@ -28,6 +44,8 @@ class TagsController < ApplicationController
   def create
     @tag = Tag.new(tag_params)
     @tag.id = Tag.count(:all)
+    @tag.like = 0; 
+    @tag.dislike = 0; 
     @article = Article.find_by_id params[:subaction]
     @tag_article = TagArticle.new
     @tag_article.tag_id = Tag.count(:all)
@@ -35,7 +53,7 @@ class TagsController < ApplicationController
     @tag_article.save    
     @tag_devise = TagDevise.new 
     @tag_devise.devise_id = current_user.id 
-    @tag_devise.tag_id = Tag.count(:all) + 1
+    @tag_devise.tag_id = Tag.count(:all)
     @tag_devise.save
       if @tag.save
         redirect_to :controller => :articles, :action => :show, :id => @article.id

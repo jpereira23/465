@@ -1,5 +1,6 @@
 <% page_header "Daydream" %>
 
+    <div class="col-md-8"> 
     <% @articles.each do |article| %>
        <div class="well well-lg"> 
        <p><%= article.title %></p> 
@@ -11,6 +12,14 @@
        </div>
     <% end %>
 
+       <%= link_to 'New Article', new_article_path %>
+    </div> 
+    <div class="col-md-4"> 
+      <div class="well well-lg"> 
+      <h1>Top Tags of the Week</h1> 
+       <%= render 'tag_devises/index' %>
+      </div>
+    </div> 
+   
 <br>
 
-<%= link_to 'New Article', new_article_path %>

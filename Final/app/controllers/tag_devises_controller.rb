@@ -5,6 +5,7 @@ class TagDevisesController < ApplicationController
   # GET /tag_devises.json
   def index
     @tag_devises = TagDevise.all
+    @tags = Tag.order(like: :asc)
   end
 
   # GET /tag_devises/1

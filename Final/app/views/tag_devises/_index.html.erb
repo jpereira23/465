@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name of the Tag</th>
+      <th style="padding:0 15px 0 15px">Likes <span class="glyphicon glyphicon-thumbs-up"></span></th> 
+      <th style="padding:0 15px 0 15px">Users <span class="glyphicon glyphicon-user"></span></th> 
+    </tr>
+  </thead>
+
+  <tbody>
+     <% @tags.each do |tag| %> 
+     <tr> 
+       <td>#<%= tag.str %></td> 
+       <td style= "padding:0 15px 0 15px"><%= tag.like %></td> 
+       <% @tag_devices.each do |devices| %> 
+         <% @users.each do |user| %> 
+           <% if devices.devise_id == user.id && devices.tag_id == tag.id %> 
+            <td style="padding:0 15px 0 15px"><%= user.email %></td> 
+            <% break %> 
+           <% end %> 
+         <% end %> 
+      <% end %> 
+     </tr>
+     <% end %>
+  </tbody>
+</table>
+
+

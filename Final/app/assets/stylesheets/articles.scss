@@ -10,7 +10,8 @@
   font-size: 1.2em; 
   font-color: black;
   font-weight: bold; 
-  background: url('old-white-background.jpg'); 
+  background: url('beautiful-sky-1.jpg'); 
+  background-attachment: scroll;
   background-size: 100%; 
 }
 
@@ -47,12 +48,3 @@
             transform:skew(8deg) rotate(3deg);
 }
 
-#cheese 
-{
-  float: left; 
-  margin-right: 10px; 
-}
-
-#cheese_edit {
-  margin-top: 15px; 
-}

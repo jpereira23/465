@@ -20,9 +20,12 @@
     <br><br><br><br>
      <strong> <%= @article.views %> <span class="glyphicon glyphicon-eye-open"></strong><br>
      <strong> <%= @article.likes %> <%= link_to  '<span class="glyphicon glyphicon-thumbs-up"></span>'.html_safe, articles_like_article_path  %>  </strong><br><br><br>
-     <%= render 'tags/form', :the_id => @article.id %>
 
   <%= render 'tags/index', :the_id => @article.id %>
+  <br>
+     <%= render 'tags/form', :the_id => @article.id %>
+
 
 </div>
+
 </body> 

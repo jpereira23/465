@@ -5,25 +5,28 @@
       <% @tags.each do |tag| %> 
        <% if article.tag_id == tag.id %> 
          <a href="#" data-toggle = "modal" data-target= "#myModal-<%= tag.str %>"> #<%= tag.str %></a>
-        <div class="btn-group"> 
          <div class="modal fade" id="myModal-<%= tag.str %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
            <div class="modal-dialog">
-            <div class="modal-content"> 
-             <div class="modal-header"> 
+            <div class="modal-content" id="myModal-<%= tag.str %>"> 
+             <div class="modal-header" id="myModal-<%= tag.str %>"> 
                   #<%= tag.str %> 
              </div> 
-             <div class="modal-body"> 
+             <div class="modal-body" id="myModal-<%= tag.str %>"> 
                   <% @tag_devises.each do |devices| %>
+                    
                     <% @users.each do |user| %> 
-                     <% if devices.devise_id == user.id %> 
+                     <% if devices.devise_id == user.id && devices.tag_id == tag.id %> 
                        <strong>User: </strong> 
                           <%= user.email %>
+                          <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span>'.html_safe,{:controller => 'tags', :action => 'like',  :a_id => tag.id, :article_id => the_id} %>
+                           <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span>'.html_safe,{:controller => 'tags', :action => 'dislike',  :a_id => tag.id, :article_id => the_id} %>
+ 
                        <% break %>
                      <% end %> 
                     <% end %> 
                   <% end %> 
              </div> 
-             <div class="modal-footer"> 
+             <div class="modal-footer" id="myModal-<%= tag.str %>"> 
                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
              </div> 
            </div> 

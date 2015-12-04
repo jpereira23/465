@@ -6,6 +6,9 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
+    @tags = Tag.order(like: :desc).limit(5)
+    @users = User.all
+    @tag_devices = TagDevise.all
   end
 
   # GET /articles/1

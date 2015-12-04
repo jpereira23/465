@@ -2,7 +2,13 @@ Rails.application.routes.draw do
 
   resources :tag_devises
   resources :tag_articles
-  resources :tags
+  resources :tags do 
+    member do 
+      get 'tags/:id/like' => 'tags#like', as: :tags_like
+      get 'tags/:id/dislike' => 'tags#dislike', as: :tags_dislike
+    end
+  end 
+
   devise_for :users
   root "articles#index"
 
