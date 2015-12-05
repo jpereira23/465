@@ -4,11 +4,18 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
 
+  def user 
+    @tags = Tag.all 
+    @users = User.all 
+    @tag_devices = TagDevise.all
+  end 
   def index
     @articles = Article.all
     @tags = Tag.order(like: :desc).limit(5)
     @users = User.all
     @tag_devices = TagDevise.all
+    @tag_articles = TagArticle.all
+    @articles = Article.all
   end
 
   # GET /articles/1
@@ -22,7 +29,10 @@ class ArticlesController < ApplicationController
     @tag_articles = TagArticle.all
     @tag_devises = TagDevise.all 
     @users = User.all
-
+    @comment = Comment.new
+    @comments = Comment.all
+    @comment_articles = CommentArticle.all
+    @comment_users = CommentUser.all
   end
   
 

@@ -8,6 +8,7 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'carrierwave'
 gem 'social-share-button', '~> 0.1.6'
+gem 'ticker-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets

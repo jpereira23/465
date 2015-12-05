@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :comment_users
+  resources :comment_articles
+  resources :comments
   resources :tag_devises
   resources :tag_articles
   resources :tags do 

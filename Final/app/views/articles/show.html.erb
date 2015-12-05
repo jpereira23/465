@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<br><br><br>
 <body id="work" >
 <div class="well well-lg"> 
-<% page_header "#{@article.title}" %>
 
   <%= link_to 'Back', articles_path %>
     <p>
@@ -18,14 +17,27 @@
   </div>
 
     <br><br><br><br>
-     <strong> <%= @article.views %> <span class="glyphicon glyphicon-eye-open"></strong><br>
-     <strong> <%= @article.likes %> <%= link_to  '<span class="glyphicon glyphicon-thumbs-up"></span>'.html_safe, articles_like_article_path  %>  </strong><br><br><br>
+     <strong> <%= @article.views %> <span class="glyphicon glyphicon-eye-open"></strong><strong> <%= @article.likes %> <%= link_to  '<span class="glyphicon glyphicon-thumbs-up"></span>'.html_safe, articles_like_article_path  %>  </strong>
 
-  <%= render 'tags/index', :the_id => @article.id %>
   <br>
-     <%= render 'tags/form', :the_id => @article.id %>
 
 
 </div>
+<div class="col-md-4">
+<div class="well well-lg">
+  
+  <%= render 'tags/index', :the_id => @article.id %>
 
+  <%= render 'tags/form', :the_id => @article.id %>
+</div> 
+</div>
 </body> 
+<div class="hello"> 
+
+<div class="col-md-8"> 
+<div class="well well-lg"> 
+  <%= render 'comments/form', :the_id => @article.id %> 
+  <%= render 'comments/index', :the_id => @article.id %>
+</div> 
+</div>
+</div> 

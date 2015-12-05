@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 
-<table>
+<table class="2" id="2">
   <thead>
     <tr>
       <th>Name of the Tag</th>
@@ -13,12 +13,49 @@
   <tbody>
      <% @tags.each do |tag| %> 
      <tr> 
-       <td>#<%= tag.str %></td> 
+       <td><a href="#" data-toggle = "modal" data-target="#myModal-<%= tag.str %>">#<%= tag.str %></td></a> 
+       <div class="modal fade" id="myModal-<%= tag.str %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog"> 
+           <div class="modal-content" id="myModal-<%= tag.str %>"> 
+             <div class="modal-header" id="myModal-<%= tag.str %>"> 
+               #<%= tag.str %> 
+             </div> 
+             <div class="modal-body" id="myModal-<%= tag.str %>"> 
+                   <% @tag_devices.each do |devices| %> 
+                     <% @users.each do |user| %> 
+                        <% if devices.devise_id == user.id && devices.tag_id == tag.id %> 
+			<div class="well well-lg"> 
+                         by <%= user.username %><br>  
+			</div> 
+                        <br><br><br>
+                        <% break %> 
+                        <% end %> 
+                    <% end %> 
+                   <% end %> 
+                    <% @tag_articles.each do |article| %> 
+                      <% @articles.each do |s_article| %> 
+                        <%if article.article_id == s_article.id && article.tag_id == tag.id %> 
+                        <div id="table"> 
+                          <div class="row"> 
+                             <span class="cell"> <%= image_tag(root_url + "/images/" + s_article.filename) %></span>  
+                              <span class="cell"><%= s_article.story %></span>
+                          </div> 
+                        </div> 
+                        <% end %> 
+                      <% end %> 
+                    <% end %>   
+                   
+            </div> 
+            <div class="modal-footer" id="myModal-<%= tag.str %>"> 
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+           </div> 
+         </div> 
+        </div>
        <td style= "padding:0 15px 0 15px"><%= tag.like %></td> 
        <% @tag_devices.each do |devices| %> 
          <% @users.each do |user| %> 
            <% if devices.devise_id == user.id && devices.tag_id == tag.id %> 
-            <td style="padding:0 15px 0 15px"><%= user.email %></td> 
+            <td style="padding:0 15px 0 15px"><%= user.username %></td> 
             <% break %> 
            <% end %> 
          <% end %> 

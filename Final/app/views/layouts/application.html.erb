@@ -4,29 +4,87 @@
   <title>Final</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+ <script type="text/javascript"> 
+       var max = 0;
+       function messages()
+       {
+         max = messages.arguments.length
+         for(i = 0; i < max; i++)
+         {
+         this[i] = messages.arguments[i]; 
+         }
+       }
+       msg = new messages(<%= javascript_tag do %><% @articles.each do |article| %> "<%= article.title %>".to_json, <% end %><% end %>); 
+   
+       var x = 0; 
+       var pos = 0; 
+       var size = msg[0].length
+        
+       function ticker()
+       {
+          document.form1.tickerfield.value = msg[x].substring(0, pos) + "_"; 
+     	  
+          if(pos++==size)
+          {
+     	    pos = 0; 
+            setTimeout("ticker()", 1000); 
+            x++; 
+          
+         if(x == max) 
+         {
+           x = 0; 
+         }
+         size = msg[x].length;
+         }
+         else 
+         {
+           setTimeout("ticker()", 50); 
+         }
+       }
+      
+      </script> 
   <%= csrf_meta_tags %>
 </head>
-<body>
-
-  <div class="navbar navbar-inverse"> 
+<div class="parent"> 
+  <div class="navbar navbar-inverse navbar-fixed-top"> 
     <div class="container"> 
     <div class="navbar-header">
       <%= link_to 'Daydream', root_path, class: 'navbar-brand'%> 
     </div> 
     <ul class="nav navbar-nav pull-right"> 
       <% if user_signed_in? %> 
-        <li><%= link_to "#{current_user.email}", user_path %></li>  
+        <li><%= link_to image_tag(current_user.avatar.url, :style => "height: 30px; width: 30px;", :class => "img-circle"), user_path %></li>  
         <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li> 
       <% else %> 
         <li><%= link_to "Sign In", new_user_session_path %></li> 
         <li><%= link_to "Sign Up", new_user_registration_path %></li> 
      <% end %>
    </ul> 
+
+   <div class="navbar-footer"> 
+   </div>
   </div> 
+</div>
 </div>
   <div class="container">
   <h1><%= yield :page_header %></h1>
   <%= yield %>
   </div>
+<div id="footer" class="container"> 
+  <nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="navbar-inner navbar-content-center">
+      <div class="ticker">
+     
+       <body onload="ticker()">
+        <form  name="form1"> 
+          <input type="text" name="tickerfield" size="48"/> 
+        </form>
+       </body>
+        </div>
+       
+          
+     </div> 
+  </nav>
+</div>
 </body>
 </html>

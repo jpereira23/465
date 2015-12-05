@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require_self
+ *= ticker-slader
  *= require social-share-button
  *= require_tree .
  */
@@ -19,6 +20,19 @@
 @import "bootstrap"; 
 @import "bootstrap-sprockets"; 
 
+.ticker {
+  width: 500px; 
+  margin: 10px auto; 
+}
+
+.well.well-lg {
+  background-color: rgba(255, 255, 255, 0.9); 
+}
+.navbar.navbar-inverse{ 
+  background: rgba(0, 0, 0, 0.8);
+ 
+}
+
 img {
- width: 100%
+  width:100%; 
 }
