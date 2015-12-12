@@ -2111,3 +2111,9 @@ D, [2015-11-22T14:01:55.054623 #7879] DEBUG -- :   [1m[35mImage Load (6.5ms)[
 D, [2015-11-22T14:01:55.078130 #7879] DEBUG -- :   [1m[36mUser Load (1.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
 I, [2015-11-22T14:01:55.180599 #7879]  INFO -- :   Rendered images/home.html.erb within layouts/application (141.7ms)
 I, [2015-11-22T14:01:55.187000 #7879]  INFO -- : Completed 200 OK in 167ms (Views: 154.0ms | ActiveRecord: 7.8ms)
+I, [2015-12-08T13:42:45.349937 #2457]  INFO -- : Started GET "/img/" for 73.235.44.251 at 2015-12-08 13:42:45 -0800
+I, [2015-12-08T13:42:45.389365 #2457]  INFO -- : Processing by ImagesController#home as HTML
+D, [2015-12-08T13:42:45.421882 #2457] DEBUG -- :   [1m[36mImage Load (4.4ms)[0m  [1mSELECT "images".* FROM "images"[0m
+D, [2015-12-08T13:42:45.447973 #2457] DEBUG -- :   [1m[35mUser Load (1.5ms)[0m  SELECT "users".* FROM "users"
+I, [2015-12-08T13:42:45.513697 #2457]  INFO -- :   Rendered images/home.html.erb within layouts/application (102.4ms)
+I, [2015-12-08T13:42:45.521977 #2457]  INFO -- : Completed 200 OK in 132ms (Views: 113.5ms | ActiveRecord: 6.9ms)

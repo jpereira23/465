@@ -15,20 +15,22 @@
          <tbody> 
          <% @comment_articles.each do |article| %> 
            <% if article.article_id == @article.id %> 
+                
              <% @comments.each do |comment| %> 
                <% if article.comment_id == comment.id %> 
                   <tr>
                     <td><%= comment.body %> <br></td>  
                   
-
+                  
 
  		   <% @comment_users.each do |ucomment| %> 
         	     <% @users.each do |user| %> 
                        <% if ucomment.user_id == user.id && ucomment.comment_id == comment.id %> 
      		        <td> <%= user.email %> </td>  
+  		       <% break %>
     		       <% end %> 
   		     <% end %> 
-                  <%end%>  
+                  <% end%>  
                  </tr> 
 
                <% end %> 

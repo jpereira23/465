@@ -18,14 +18,14 @@
          <div class="modal-dialog"> 
            <div class="modal-content" id="myModal-<%= tag.str %>"> 
              <div class="modal-header" id="myModal-<%= tag.str %>"> 
-               #<%= tag.str %> 
+               <h1><font color="white">#<%= tag.str %></font></h1> 
              </div> 
              <div class="modal-body" id="myModal-<%= tag.str %>"> 
                    <% @tag_devices.each do |devices| %> 
                      <% @users.each do |user| %> 
                         <% if devices.devise_id == user.id && devices.tag_id == tag.id %> 
 			<div class="well well-lg"> 
-                         by <%= user.username %><br>  
+                         by <%= user.username %> <%= image_tag(user.avatar.url, :style => "height: 30px; width: 30px;", :class => "img-circle") %><br>  
 			</div> 
                         <br><br><br>
                         <% break %> 
@@ -35,11 +35,9 @@
                     <% @tag_articles.each do |article| %> 
                       <% @articles.each do |s_article| %> 
                         <%if article.article_id == s_article.id && article.tag_id == tag.id %> 
-                        <div id="table"> 
-                          <div class="row"> 
-                             <span class="cell"> <%= image_tag(root_url + "/images/" + s_article.filename) %></span>  
-                              <span class="cell"><%= s_article.story %></span>
-                          </div> 
+                        <div class="well well-lg">
+                              <%= image_tag(root_url + "/images/" + s_article.filename, :style => "width: 100%", :class => "img-rounded")  %></span>  
+                              <%= s_article.title %>
                         </div> 
                         <% end %> 
                       <% end %> 

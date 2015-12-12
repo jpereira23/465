@@ -21,6 +21,10 @@
   max-width: 30px; 
   max-height: 30px; 
 }
+
+body > .special {
+  background: url('thatsit.gif'); 
+}
 body, html { 
   height: 100%; 
 

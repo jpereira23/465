@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Tags: </h3>
+  <% @tag_articles.each do |article| %> 
+    <% if article.article_id == the_id %> 
+      <% @tags.each do |tag| %> 
+       <% if article.tag_id == tag.id %> 
+         <a href="#" data-toggle = "modal" data-target= "#myModal">#<%= tag.str %></a>
+        <div class="btn-group"> 
+         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog">
+            <div class="modal-content"> 
+             <div class="modal-header"> 
+               <h4 class="modal-title" id="myModalLabel"> 
+                 <%= tag.str %> 
+               </h4> 
+             </div> 
+             <div class="modal-body"> 
+                  <% @tag_devises.each do |devices| %>
+                     <% if devices.devise_id == current_user.id %> 
+                       <%= tag.str %> 
+                       <% break %>
+                     <% end %> 
+                  <% end %> 
+             </div> 
+             <div class="modal-footer"> 
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+             </div> 
+           </div> 
+          </div> 
+         </div>
+
+       <% end %>
+      <% end %>
+    <% end %> 
+  <% end %>
+
+
+<br><br><br>
+
